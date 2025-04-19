@@ -26,13 +26,15 @@ public class Contribution {
 
     @ManyToOne
     @JoinColumn(name = "household_book_id")
-    private HouseholdBook householdBook;
+    private Household household;
 
     private Long money;
 
     private StatusContribution status;
 
     private Date paymentDate;
+
+    private Date deadline;
 
     private Date createdAt;
 

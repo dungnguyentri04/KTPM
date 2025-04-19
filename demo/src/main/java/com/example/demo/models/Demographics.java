@@ -3,7 +3,6 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.awt.*;
 import java.util.Date;
 import java.util.List;
 
@@ -25,8 +24,8 @@ public class Demographics {
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name="household_book_id")
-    private HouseholdBook householdBook;
+    @JoinColumn(name="household_id")
+    private Household household;
 
     @OneToMany(mappedBy = "demographics")
     private List<TemporaryResidence> temporaryResidences;
@@ -38,6 +37,8 @@ public class Demographics {
     @ManyToOne
     @JoinColumn(name="deleted_user_id")
     private User deletedUserId;
+
+    private Boolean isOwner;
 
     private String name;
 

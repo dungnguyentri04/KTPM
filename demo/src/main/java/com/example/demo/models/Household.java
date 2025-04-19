@@ -12,13 +12,13 @@ import java.util.List;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-public class HouseholdBook {
+public class Household {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "householdBook")
+    @OneToMany(mappedBy = "household")
     private List<Demographics> demographicsList;
 
     private String ownerName;

@@ -29,10 +29,6 @@ public class Fee {
 
     private Long costStandard;
 
-    private Date startedDate;
-
-    private Date endedDate;
-
     private Date createdAt;
 
     private Date updatedAt;
