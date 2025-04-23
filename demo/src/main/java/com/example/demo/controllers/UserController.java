@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.ApiResponse;
+import com.example.demo.dto.UserCreationDto;
 import com.example.demo.dto.UserDto;
 import com.example.demo.models.User;
 import com.example.demo.service.UserService;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String addUser(){
+    public String addUser(@RequestBody UserCreationDto userCreationDto){
 
         return null;
     }
@@ -42,7 +43,7 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/users")
+    @GetMapping("/allUsers")
     public ResponseEntity<?> getAllUsers(){
         ApiResponse<List<UserDto>> apiResponse = new ApiResponse<>();
         List<UserDto> userDtoList = userService.getAllUser();

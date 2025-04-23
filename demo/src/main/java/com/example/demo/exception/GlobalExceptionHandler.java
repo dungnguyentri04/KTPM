@@ -38,6 +38,6 @@ public class GlobalExceptionHandler {
                         "path", request.getRequestURI()
                 )
         );
-        return ResponseEntity.status(500).body(apiResponse);
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }
 }

@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.Date;
 import java.util.List;
 
 @Getter
@@ -33,5 +34,9 @@ public class User {
     private UserRole role;
 
     private String phoneNumber;
+
+    private Date created_at;
+
+    private Date updated_at;
 
 }
