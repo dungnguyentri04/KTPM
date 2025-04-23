@@ -28,9 +28,7 @@ public class DemographicsDto {
 
     private UserDto deletedUser;
 
-    /**
-     * Whether this person is the owner of the household.
-     */
+
     private Boolean isOwner;
 
     private String name;
