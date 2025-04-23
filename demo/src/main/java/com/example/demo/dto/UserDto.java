@@ -13,33 +13,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class UserDto {
-    /**
-     * Unique identifier of the user.
-     */
     private Long id;
 
-    /**
-     * List of Demographics record IDs created by this user.
-     */
-    private List<DemographicsDto> demographicsCreated;
-
-    /**
-     * List of Demographics record IDs deleted by this user.
-     */
-    private List<DemographicsDto> demographicsDeleted;
-
-    /**
-     * Username for login.
-     */
     private String userName;
 
-    /**
-     * Encrypted password (handle carefully).
-     */
     private String password;
 
-    /**
-     * Role of the user (ACCOUNTANT or MANAGER).
-     */
-    private UserRole role;
+    private String role;
+
+    private String phoneNumber;
 }
