@@ -1,8 +1,10 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.dto.UserDto;
+import com.example.demo.dto.UserCreationDto;
+import com.example.demo.dto.UserResponseDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.models.User;
+import com.example.demo.models.User.UserRole;
 import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.UserService;
 import org.modelmapper.ModelMapper;
@@ -10,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -21,10 +22,10 @@ public class UserServiceImpl implements UserService {
     private ModelMapper modelMapper;
 
     @Override
-    public List<UserDto> getAllUser() {
-        List<UserDto> userDtoList = userRepository.findAll().stream().map(
+    public List<UserResponseDto> getAllUser() {
+        List<UserResponseDto> userDtoList = userRepository.findAll().stream().map(
                 user -> {
-                    UserDto userDto = modelMapper.map(user, UserDto.class);
+                    UserResponseDto userDto = modelMapper.map(user, UserResponseDto.class);
                     userDto.setRole(user.getRole().name());
                     return userDto;
                 }
@@ -34,11 +35,28 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto findUserById(Long id)  {
+    public UserResponseDto findUserById(Long id)  {
         User user = userRepository.findById(id).orElseThrow(() -> new NotFoundException("Not found user"));
-        UserDto userDto = modelMapper.map(user,UserDto.class);
+        UserResponseDto userDto = modelMapper.map(user, UserResponseDto.class);
         userDto.setRole(user.getRole().name());
         return userDto;
+    }
+
+    @Override
+    public String deleteUserById(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
+        userRepository.delete(user);
+        return "User with ID" + id + "deleted successfully";
+    }
+
+    @Override
+    public UserResponseDto addUser(UserCreationDto userCreationDto) {
+        User user = modelMapper.map(userCreationDto,User.class);
+        UserRole role = UserRole.valueOf(userCreationDto.getRole());
+        User saveUser = userRepository.save(user);
+        return modelMapper.map(saveUser, UserResponseDto.class);
     }
 
 }

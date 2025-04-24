@@ -9,6 +9,7 @@ import com.example.demo.service.HouseholdService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Date;
 import java.util.List;
@@ -17,6 +18,7 @@ import java.util.List;
 public class HouseholdServiceImpl implements HouseholdService {
     @Autowired
     private HouseholdRepository householdRepository;
+
     @Autowired
     private ModelMapper modelMapper;
 
@@ -31,7 +33,7 @@ public class HouseholdServiceImpl implements HouseholdService {
     }
 
     @Override
-    public HouseholdDto addHousehold(HouseholdDto householdDto) {
+    public HouseholdDto addHousehold(@RequestBody HouseholdDto householdDto) {
         // Convert DTO to entity
         Household household = modelMapper.map(householdDto, Household.class);
         // Save entity to the database

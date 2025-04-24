@@ -2,8 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.dto.ApiResponse;
 import com.example.demo.dto.UserCreationDto;
-import com.example.demo.dto.UserDto;
-import com.example.demo.models.User;
+import com.example.demo.dto.UserResponseDto;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,7 +13,6 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 @Controller
 @RequestMapping("/api/auth")
@@ -28,14 +26,24 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public String addUser(@RequestBody UserCreationDto userCreationDto){
-
-        return null;
+    public ResponseEntity<ApiResponse<UserResponseDto>> addUser(@RequestBody UserCreationDto userCreationDto){
+        UserResponseDto userDto = userService.addUser(userCreationDto);
+        ApiResponse<UserResponseDto> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("add user successfully");
+        response.setData(userDto);
+        response.setMetadata(null);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/users/{userId}")
-    public String deleteUser(){
-        return null;
+    public ResponseEntity<ApiResponse<String>> deleteUser(@PathVariable Long userId){
+        String message = userService.deleteUserById(userId);
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Delete user successfully");
+        response.setData(message);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/users/{userId}")
@@ -45,8 +53,8 @@ public class UserController {
 
     @GetMapping("/allUsers")
     public ResponseEntity<?> getAllUsers(){
-        ApiResponse<List<UserDto>> apiResponse = new ApiResponse<>();
-        List<UserDto> userDtoList = userService.getAllUser();
+        List<UserResponseDto> userDtoList = userService.getAllUser();
+        ApiResponse<List<UserResponseDto>> apiResponse = new ApiResponse<>();
         Map<String, Object> metadata = new HashMap<>();
         metadata.put("total", userDtoList.size());
         apiResponse.setStatus("success");
@@ -58,8 +66,8 @@ public class UserController {
 
     @GetMapping("/users/{userId}")
     public ResponseEntity<?> getUser(@PathVariable Long userId){
-        ApiResponse<UserDto> apiResponse = new ApiResponse<>();
-        UserDto userDto = userService.findUserById(userId);
+        UserResponseDto userDto = userService.findUserById(userId);
+        ApiResponse<UserResponseDto> apiResponse = new ApiResponse<>();
         apiResponse.setStatus("success");
         apiResponse.setMessage("Select user successfully");
         apiResponse.setMetadata(null);

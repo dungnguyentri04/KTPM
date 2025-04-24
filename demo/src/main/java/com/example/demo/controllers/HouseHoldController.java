@@ -56,7 +56,7 @@ public class HouseHoldController {
     @DeleteMapping("/{householdId}")
     public ResponseEntity<ApiResponse<String>> deleteHousehold(@PathVariable Long householdId){
         // Delete the household
-       String message =  householdService.deleteHousehold(householdId);
+        String message = householdService.deleteHousehold(householdId);
         // Create a response object
         ApiResponse<String> response = new ApiResponse<>();
         response.setStatus("success");

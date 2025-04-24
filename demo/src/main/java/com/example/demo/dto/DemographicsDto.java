@@ -23,10 +23,10 @@ public class DemographicsDto {
     private List<TemporaryResidenceDto> temporaryResidenceIds;
 
 
-    private UserDto createdUser;
+    private UserResponseDto createdUser;
 
 
-    private UserDto deletedUser;
+    private UserResponseDto deletedUser;
 
 
     private Boolean isOwner;

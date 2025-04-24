@@ -1,12 +1,16 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.UserDto;
-import com.example.demo.models.User;
+import com.example.demo.dto.UserCreationDto;
+import com.example.demo.dto.UserResponseDto;
 
 import java.util.List;
 
 public interface UserService {
-    public List<UserDto> getAllUser();
+    public List<UserResponseDto> getAllUser();
 
-    public UserDto findUserById(Long id);
+    public UserResponseDto findUserById(Long id);
+
+    public String deleteUserById(Long id);
+
+    public UserResponseDto addUser(UserCreationDto userDto);
 }
