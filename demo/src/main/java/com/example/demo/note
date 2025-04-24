@@ -1,7 +1,0 @@
-1.thêm các default value . ví dụ Role User thay vì để enum trong User
-2.service nên trả về các ApiResponse
-3.Sửa lại phần đường dẫn api
-4.Xem lại phần response Dto và creation Dto
-5.Kiểm tra dữ liệu đầu vào
-6.Kiểm tra role User khi chuyển từ string sang enum ở phần thêm user
-7.Thay đổi user?
