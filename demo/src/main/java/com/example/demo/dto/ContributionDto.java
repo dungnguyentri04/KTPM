@@ -13,40 +13,16 @@ import lombok.NoArgsConstructor;
 public class ContributionDto {
     private Long id;
 
-    private FeeDto fee;
+    private Long feeId;
 
-    /**
-     * ID of the related Household.
-     */
-    private HouseholdDto household;
+    private Long householdId;
 
-    /**
-     * Amount of money contributed.
-     */
     private Long money;
 
-    /**
-     * Status of the contribution (COMPLETE or IN_COMPLETE).
-     */
-    private StatusContribution status;
+    private String status;
 
-    /**
-     * Date when payment was made.
-     */
     private Date paymentDate;
 
-    /**
-     * Deadline for the payment.
-     */
     private Date deadline;
 
-    /**
-     * Timestamp when the contribution was created.
-     */
-    private Date createdAt;
-
-    /**
-     * Timestamp when the contribution was last updated.
-     */
-    private Date updateAt;
 }
