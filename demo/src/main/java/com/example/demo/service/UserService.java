@@ -1,7 +1,7 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.UserCreationDto;
-import com.example.demo.dto.UserResponseDto;
+import com.example.demo.dto.RequestDto.UserRequestDto;
+import com.example.demo.dto.ResponseDto.UserResponseDto;
 
 import java.util.List;
 
@@ -12,5 +12,5 @@ public interface UserService {
 
     public String deleteUserById(Long id);
 
-    public UserResponseDto addUser(UserCreationDto userDto);
+    public UserResponseDto addUser(UserRequestDto userDto);
 }

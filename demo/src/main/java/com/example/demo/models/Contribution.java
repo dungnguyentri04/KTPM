@@ -16,6 +16,7 @@ public class Contribution {
         COMPLETE,
         IN_COMPLETE
     }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,13 +29,18 @@ public class Contribution {
     @JoinColumn(name = "household_book_id")
     private Household household;
 
-    private Long money;
+    private double money;
+
+    private double price;
 
     private StatusContribution status;
 
     private Date paymentDate;
 
     private Date deadline;
+
+    @Column(columnDefinition = "json")
+    private String attributes;
 
     private Date createdAt;
 

@@ -1,19 +1,19 @@
 package com.example.demo.service;
 
-import com.example.demo.dto.ApiResponse;
-import com.example.demo.dto.HouseholdDto;
+import com.example.demo.dto.RequestDto.HouseholdRequestDto;
+import com.example.demo.dto.ResponseDto.HouseholdResponseDto;
 
 import java.util.List;
 
 public interface HouseholdService {
 
-    List<HouseholdDto> getAllHouseholds();
+    List<HouseholdResponseDto> getAllHouseholds();
 
-     HouseholdDto addHousehold(HouseholdDto householdDto);
+     HouseholdResponseDto addHousehold(HouseholdRequestDto householdRequestDto);
 
-     HouseholdDto getHouseholdById(Long id);
+     HouseholdResponseDto getHouseholdById(Long id);
 
-     HouseholdDto updateHousehold(Long id, HouseholdDto householdDto);
+     HouseholdResponseDto updateHousehold(Long id, HouseholdRequestDto householdRequestDto);
 
      String deleteHousehold(Long id);
 

@@ -1,18 +1,19 @@
 package com.example.demo.service;
 
 
-import com.example.demo.dto.FeeDto;
+import com.example.demo.dto.RequestDto.FeeRequestDto;
+import com.example.demo.dto.ResponseDto.FeeResponseDto;
 
 import java.util.List;
 
 public interface FeeService {
-    List<FeeDto> getAllFees();
+    List<FeeResponseDto> getAllFees();
 
-    FeeDto getFeeById(Long id);
+    FeeResponseDto getFeeById(Long id);
 
-    FeeDto addFee(FeeDto feeDto);
+    FeeResponseDto addFee(FeeRequestDto feeRequestDto);
 
-    FeeDto upDateFee(Long id, FeeDto feeDto);
+    FeeResponseDto upDateFee(Long id, FeeRequestDto feeRequestDto);
 
     String deleteFee(Long id);
 

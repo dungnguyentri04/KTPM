@@ -1,8 +1,8 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.ApiResponse;
-import com.example.demo.dto.UserCreationDto;
-import com.example.demo.dto.UserResponseDto;
+import com.example.demo.dto.RequestDto.UserRequestDto;
+import com.example.demo.dto.ResponseDto.UserResponseDto;
 import com.example.demo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -26,8 +26,8 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<ApiResponse<UserResponseDto>> addUser(@RequestBody UserCreationDto userCreationDto){
-        UserResponseDto userDto = userService.addUser(userCreationDto);
+    public ResponseEntity<ApiResponse<UserResponseDto>> addUser(@RequestBody UserRequestDto userRequestDto){
+        UserResponseDto userDto = userService.addUser(userRequestDto);
         ApiResponse<UserResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("add user successfully");

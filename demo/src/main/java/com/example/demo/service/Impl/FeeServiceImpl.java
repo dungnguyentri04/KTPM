@@ -1,6 +1,7 @@
 package com.example.demo.service.Impl;
 
-import com.example.demo.dto.FeeDto;
+import com.example.demo.dto.RequestDto.FeeRequestDto;
+import com.example.demo.dto.ResponseDto.FeeResponseDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.models.Fee;
 import com.example.demo.repositories.FeeRepository;
@@ -23,47 +24,45 @@ public class FeeServiceImpl implements FeeService {
 
 
     @Override
-    public List<FeeDto> getAllFees() {
+    public List<FeeResponseDto> getAllFees() {
         return feeRepository.findAll().stream()
-                .map(fee -> modelMapper.map(fee,FeeDto.class))
+                .map(fee -> modelMapper.map(fee, FeeResponseDto.class))
                 .collect(Collectors.toList());
     }
 
     @Override
-    public FeeDto getFeeById(Long id) {
+    public FeeResponseDto getFeeById(Long id) {
         Fee fee = feeRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Fee not found")
         );
 
-        return modelMapper.map(fee,FeeDto.class);
+        return modelMapper.map(fee, FeeResponseDto.class);
     }
 
     @Override
-    public FeeDto addFee(FeeDto feeDto) {
-        Fee fee = modelMapper.map(feeDto,Fee.class);
+    public FeeResponseDto addFee(FeeRequestDto feeRequestDto) {
+        Fee fee = modelMapper.map(feeRequestDto,Fee.class);
         Fee saveFee = feeRepository.save(fee);
 
-        return modelMapper.map(saveFee, FeeDto.class);
+        return modelMapper.map(saveFee, FeeResponseDto.class);
     }
 
     @Override
-    public FeeDto upDateFee(Long id, FeeDto feeDto) {
+    public FeeResponseDto upDateFee(Long id, FeeRequestDto feeRequestDto) {
         Fee existingFee = feeRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Fee not found")
         );
 
         // Update the existing fee's properties
-        existingFee.setId((feeDto.getId()));
-        existingFee.setType(feeDto.getType());
-        existingFee.setName(feeDto.getName());
-        existingFee.setCostStandard(feeDto.getCostStandard());
-        existingFee.setCreatedAt(feeDto.getCreatedAt());
+        existingFee.setType(feeRequestDto.getType());
+        existingFee.setName(feeRequestDto.getName());
+        existingFee.setCostStandard(feeRequestDto.getCostStandard());
         existingFee.setUpdatedAt(new Date());
 
         Fee updatedFee = feeRepository.save(existingFee);
 
 
-        return modelMapper.map(updatedFee, FeeDto.class);
+        return modelMapper.map(updatedFee, FeeResponseDto.class);
     }
 
     @Override
@@ -74,4 +73,5 @@ public class FeeServiceImpl implements FeeService {
         feeRepository.delete(existingFee);
         return "Deleted fee with id: " + id;
     }
+
 }

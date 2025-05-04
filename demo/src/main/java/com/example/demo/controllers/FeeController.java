@@ -1,9 +1,11 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.ApiResponse;
-import com.example.demo.dto.FeeDto;
+import com.example.demo.dto.RequestDto.FeeRequestDto;
+import com.example.demo.dto.ResponseDto.FeeResponseDto;
 import com.example.demo.service.FeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,33 +18,33 @@ public class FeeController {
     private FeeService feeService;
 
     @GetMapping("/")
-    public ResponseEntity<ApiResponse<List<FeeDto>>> getAllFees(){
-        List<FeeDto> feeDtos = feeService.getAllFees();
-        ApiResponse<List<FeeDto>> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<List<FeeResponseDto>>> getAllFees(){
+        List<FeeResponseDto> feeResponseDtos = feeService.getAllFees();
+        ApiResponse<List<FeeResponseDto>> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Fees retrieved successfully");
-        response.setData(feeDtos);
-        return ResponseEntity.status(200).body(response);
+        response.setData(feeResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{feeId}")
-    public ResponseEntity<ApiResponse<FeeDto>> getFee(@PathVariable Long feeId){
-        FeeDto feeDto = feeService.getFeeById(feeId);
-        ApiResponse<FeeDto> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<FeeResponseDto>> getFee(@PathVariable Long feeId){
+        FeeResponseDto feeResponseDto = feeService.getFeeById(feeId);
+        ApiResponse<FeeResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Fee found");
-        response.setData(feeDto);
-        return ResponseEntity.status(200).body(response);
+        response.setData(feeResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/")
-    public ResponseEntity<ApiResponse<FeeDto>> addFee(@RequestBody FeeDto feeDto){
-        FeeDto addedFee = feeService.addFee(feeDto);
-        ApiResponse<FeeDto> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<FeeResponseDto>> addFee(@RequestBody FeeRequestDto feeRequestDto){
+        FeeResponseDto addedFee = feeService.addFee(feeRequestDto);
+        ApiResponse<FeeResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Fee added successfully");
         response.setData(addedFee);
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{feeId}")
@@ -56,12 +58,12 @@ public class FeeController {
     }
 
     @PutMapping("/{feeId}")
-    public ResponseEntity<ApiResponse<FeeDto>> updateFee(@PathVariable Long feeId, @RequestBody FeeDto feeDto){
-        FeeDto updatedFee = feeService.upDateFee(feeId, feeDto);
-        ApiResponse<FeeDto> response = new ApiResponse<>();
+    public ResponseEntity<ApiResponse<FeeResponseDto>> updateFee(@PathVariable Long feeId, @RequestBody FeeRequestDto feeRequestDto){
+        FeeResponseDto updatedFee = feeService.upDateFee(feeId, feeRequestDto);
+        ApiResponse<FeeResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Fee updated successfully");
         response.setData(updatedFee);
-        return ResponseEntity.status(200).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 }

@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.dto.RequestDto;
 
 import com.example.demo.models.TemporaryResidence.ResidenceType;
 import java.util.Date;
@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class TemporaryResidenceDto {
+public class TemporaryResidenceRequestDto {
     /**
      * Unique identifier of the temporary residence record.
      */
@@ -21,7 +21,7 @@ public class TemporaryResidenceDto {
     /**
      * ID of the associated Demographics record.
      */
-    private DemographicsDto demographics;
+    private DemographicsRequestDto demographics;
 
     /**
      * Type of residence: TEMPORARY_RESIDENCE or TEMPORARY_ABSENCE.

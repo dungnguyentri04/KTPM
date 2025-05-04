@@ -1,10 +1,12 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.ApiResponse;
-import com.example.demo.dto.HouseholdDto;
+import com.example.demo.dto.RequestDto.HouseholdRequestDto;
 
+import com.example.demo.dto.ResponseDto.HouseholdResponseDto;
 import com.example.demo.service.HouseholdService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.web.bind.annotation.*;
@@ -18,39 +20,39 @@ public class HouseHoldController {
     private HouseholdService householdService;
 
     @GetMapping("/")
-    public ResponseEntity<ApiResponse<List<HouseholdDto>>> getAllHouseholds(){
+    public ResponseEntity<ApiResponse<List<HouseholdResponseDto>>> getAllHouseholds(){
         // Get all households
-        List<HouseholdDto> householdDtos = householdService.getAllHouseholds();
+        List<HouseholdResponseDto> householdResponseDtos = householdService.getAllHouseholds();
         // Create a response object
-        ApiResponse<List<HouseholdDto>> response = new ApiResponse<>();
+        ApiResponse<List<HouseholdResponseDto>> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Households retrieved successfully");
-        response.setData(householdDtos);
-        return ResponseEntity.status(200).body(response);
+        response.setData(householdResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @GetMapping("/{householdId}")
-    public ResponseEntity<ApiResponse<HouseholdDto>> getHousehold(@PathVariable Long householdId){
+    public ResponseEntity<ApiResponse<HouseholdResponseDto>> getHousehold(@PathVariable Long householdId){
         // Get household by ID
-        HouseholdDto householdDto = householdService.getHouseholdById(householdId);
+        HouseholdResponseDto householdResponseDto = householdService.getHouseholdById(householdId);
         // Create a response object
-        ApiResponse<HouseholdDto> response = new ApiResponse<>();
+        ApiResponse<HouseholdResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Household added successfully");
-        response.setData(householdDto);
-        return ResponseEntity.status(200).body(response);
+        response.setData(householdResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PostMapping("/")
-    public ResponseEntity<ApiResponse<HouseholdDto>> addHousehold(@RequestBody HouseholdDto householdDto){
+    public ResponseEntity<ApiResponse<HouseholdResponseDto>> addHousehold(@RequestBody HouseholdRequestDto householdRequestDto){
         // Add a new household
-        HouseholdDto addedHousehold = householdService.addHousehold(householdDto);
+        HouseholdResponseDto addedHousehold = householdService.addHousehold(householdRequestDto);
         // Create a response object
-        ApiResponse<HouseholdDto> response = new ApiResponse<>();
+        ApiResponse<HouseholdResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Household found");
         response.setData(addedHousehold);
-        return ResponseEntity.status(201).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @DeleteMapping("/{householdId}")
@@ -63,21 +65,21 @@ public class HouseHoldController {
         response.setMessage("Household deleted successfully");
         response.setData(message);
         // Return the response
-        return ResponseEntity.status(200).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     @PutMapping("/{householdId}")
-    public ResponseEntity<ApiResponse<HouseholdDto>> updateHousehold(@PathVariable Long householdId,
-                                                                      @RequestBody HouseholdDto householdDto){
+    public ResponseEntity<ApiResponse<HouseholdResponseDto>> updateHousehold(@PathVariable Long householdId,
+                                                                            @RequestBody HouseholdRequestDto householdRequestDto){
         // Update the household
-        HouseholdDto updatedHouseholdDto = householdService.updateHousehold(householdId, householdDto);
+        HouseholdResponseDto householdResponseDto = householdService.updateHousehold(householdId, householdRequestDto);
         // Create a response object
-        ApiResponse<HouseholdDto> response = new ApiResponse<>();
+        ApiResponse<HouseholdResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Household updated successfully");
-        response.setData(updatedHouseholdDto);
+        response.setData(householdResponseDto);
         // Return the response
-        return ResponseEntity.status(200).body(response);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
     //get tuỳ chỉnh với các tham số

@@ -1,5 +1,6 @@
-package com.example.demo.dto;
+package com.example.demo.dto.RequestDto;
 
+import com.example.demo.dto.ResponseDto.UserResponseDto;
 import com.example.demo.models.Demographics.Gender;
 import java.util.Date;
 import java.util.List;
@@ -13,14 +14,14 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class DemographicsDto {
+public class DemographicsRequestDto {
     private Long id;
 
 
-    private HouseholdDto household;
+    private HouseholdRequestDto household;
 
 
-    private List<TemporaryResidenceDto> temporaryResidenceIds;
+    private List<TemporaryResidenceRequestDto> temporaryResidenceIds;
 
 
     private UserResponseDto createdUser;
