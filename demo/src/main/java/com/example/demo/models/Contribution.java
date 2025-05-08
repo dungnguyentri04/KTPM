@@ -26,7 +26,7 @@ public class Contribution {
     private Fee fee;
 
     @ManyToOne
-    @JoinColumn(name = "household_book_id")
+    @JoinColumn(name = "household_id")
     private Household household;
 
     private double money;

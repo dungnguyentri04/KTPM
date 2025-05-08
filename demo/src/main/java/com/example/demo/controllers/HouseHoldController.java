@@ -1,6 +1,7 @@
 package com.example.demo.controllers;
 
 import com.example.demo.dto.ApiResponse;
+import com.example.demo.dto.RequestDto.HouseholdMemberDto;
 import com.example.demo.dto.RequestDto.HouseholdRequestDto;
 
 import com.example.demo.dto.ResponseDto.HouseholdResponseDto;
@@ -9,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/api/households")
+@Controller
+@RequestMapping("/api")
 public class HouseHoldController {
     @Autowired
     private HouseholdService householdService;
 
-    @GetMapping("/")
+    //them metadata số lượng household
+    @GetMapping("/households")
     public ResponseEntity<ApiResponse<List<HouseholdResponseDto>>> getAllHouseholds(){
         // Get all households
         List<HouseholdResponseDto> householdResponseDtos = householdService.getAllHouseholds();
@@ -31,7 +34,7 @@ public class HouseHoldController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/{householdId}")
+    @GetMapping("/households/{householdId}")
     public ResponseEntity<ApiResponse<HouseholdResponseDto>> getHousehold(@PathVariable Long householdId){
         // Get household by ID
         HouseholdResponseDto householdResponseDto = householdService.getHouseholdById(householdId);
@@ -43,7 +46,7 @@ public class HouseHoldController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/")
+    @PostMapping("/households")
     public ResponseEntity<ApiResponse<HouseholdResponseDto>> addHousehold(@RequestBody HouseholdRequestDto householdRequestDto){
         // Add a new household
         HouseholdResponseDto addedHousehold = householdService.addHousehold(householdRequestDto);
@@ -55,7 +58,7 @@ public class HouseHoldController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping("/{householdId}")
+    @DeleteMapping("/households/{householdId}")
     public ResponseEntity<ApiResponse<String>> deleteHousehold(@PathVariable Long householdId){
         // Delete the household
         String message = householdService.deleteHousehold(householdId);
@@ -68,7 +71,7 @@ public class HouseHoldController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PutMapping("/{householdId}")
+    @PutMapping("/households/{householdId}")
     public ResponseEntity<ApiResponse<HouseholdResponseDto>> updateHousehold(@PathVariable Long householdId,
                                                                             @RequestBody HouseholdRequestDto householdRequestDto){
         // Update the household
@@ -81,6 +84,18 @@ public class HouseHoldController {
         // Return the response
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PostMapping("/households/{householdId}/addDemographics")
+    public ResponseEntity<ApiResponse<String>> addDemographicToHousehold(@PathVariable Long householdId,
+                                                                                       @RequestBody HouseholdMemberDto householdMemberDto) {
+        String message = householdService.addDemographicToHousehold(householdId, householdMemberDto);
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Add demographic to household successfully");
+        response.setData(message);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 
     //get tuỳ chỉnh với các tham số
 

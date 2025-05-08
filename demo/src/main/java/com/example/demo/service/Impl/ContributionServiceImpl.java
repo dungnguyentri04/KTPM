@@ -45,12 +45,10 @@ public class ContributionServiceImpl implements ContributionService {
 //        contribution.setCreatedAt(LocalDate.now());
 //        contribution.setUpdateAt();
 
-        double money = feeCaculator(household, fee, contributionRequestDto.getAttributes(), contributionRequestDto.getMoney());
+        double money = feeCaculator(household, fee, contributionRequestDto);
         contribution.setMoney(money);
-
         contribution.setStatus(Contribution.StatusContribution.valueOf("IN_COMPLETE"));
         contribution.setFee(fee);
-
         contribution.setHousehold(household);
         contributionRepository.save(contribution);
         return modelMapper.map(contribution, ContributionResponseDto.class);
@@ -94,27 +92,36 @@ public class ContributionServiceImpl implements ContributionService {
         return contributionResponseDtos;
     }
 
-    private double feeCaculator(Household household, Fee fee, Map<String, Object> attributes, double money) {
+    private double feeCaculator(Household household, Fee fee, ContributionRequestDto contributionRequestDto) {
         double price;
+        double money = contributionRequestDto.getMoney();
+        Map<String, Object> attributes = contributionRequestDto.getAttributes();
         if (fee.getType().equals(Fee.TypeOfFee.MANDATORY)){
-            double area = (double) attributes.getOrDefault("area", 0.0);
+            double area = 0;
+            if (attributes != null){
+                area = (double) attributes.getOrDefault("area", 0.0);
+            }
             switch (fee.getName()) {
-                case "Eletricity":
+                case "Electricity":
                     price = money;
+                    break;
                 case "Water":
                     price = money;
+                    break;
                 case "Cleaning":
                     int numberOfPeople = household.getNumberOfPeople();
                     price = money * numberOfPeople;
+                    break;
                 case "Service":
-                    area = (double) attributes.getOrDefault("area", 0.0);
                     price = money * area;
+                    break;
                 case "Manage":
-                    area = (double) attributes.getOrDefault("area", 0.0);
                     price = money * area;
+                    break;
                 case "Vehicle":
                     int numberOfVehicles = (int) attributes.getOrDefault("numberOfVehicles", 0);
                     price = money * numberOfVehicles;
+                    break;
                 default:
                     return 0;
             }

@@ -48,12 +48,13 @@ public class UserServiceImpl implements UserService {
                 () -> new NotFoundException("User not found")
         );
         userRepository.delete(user);
-        return "User with ID" + id + "deleted successfully";
+        return "User with ID " + id + " deleted successfully";
     }
 
     @Override
     public UserResponseDto addUser(UserRequestDto userRequestDto) {
-        User user = modelMapper.map(userRequestDto,User.class);
+        //check user ton tai
+        User user = modelMapper.map(userRequestDto, User.class);
         UserRole role = UserRole.valueOf(userRequestDto.getRole());
         User saveUser = userRepository.save(user);
         return modelMapper.map(saveUser, UserResponseDto.class);

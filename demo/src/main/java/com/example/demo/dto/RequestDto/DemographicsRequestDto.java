@@ -8,47 +8,52 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Data Transfer Object for Demographics entity.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DemographicsRequestDto {
-    private Long id;
 
+//    private HouseholdRequestDto household;
 
-    private HouseholdRequestDto household;
+//    private List<TemporaryResidenceRequestDto> temporaryResidenceIds;
 
+//    private Long createdUserId;
+//
+//    private Long deletedUserId;
 
-    private List<TemporaryResidenceRequestDto> temporaryResidenceIds;
-
-
-    private UserResponseDto createdUser;
-
-
-    private UserResponseDto deletedUser;
-
-
-    private Boolean isOwner;
+//    private Boolean isOwner;
 
     private String name;
+
     private String alias;
+
     private Date birthday;
+
     private Gender sex;
+
     private String placeOfBirth;
+
     private String nationality;
+
     private String countryside;
+
     private String ethnic;
+
     private String job;
+
     private String workplace;
+
     private String citizenId;
+
     private String issuingLocation;
+
     private Date issuingDate;
+
     private String reasonForMoving;
+
     private Date movingDate;
+
     private String reasonForLeaving;
+
     private Date leavingDate;
-    private Date createdAt;
-    private Date updatedAt;
 }

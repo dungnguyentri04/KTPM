@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/fees")
+@RequestMapping("/api")
 public class FeeController {
     @Autowired
     private FeeService feeService;
 
-    @GetMapping("/")
+    @GetMapping("/fees")
     public ResponseEntity<ApiResponse<List<FeeResponseDto>>> getAllFees(){
         List<FeeResponseDto> feeResponseDtos = feeService.getAllFees();
         ApiResponse<List<FeeResponseDto>> response = new ApiResponse<>();
@@ -27,7 +27,7 @@ public class FeeController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @GetMapping("/{feeId}")
+    @GetMapping("/fees/{feeId}")
     public ResponseEntity<ApiResponse<FeeResponseDto>> getFee(@PathVariable Long feeId){
         FeeResponseDto feeResponseDto = feeService.getFeeById(feeId);
         ApiResponse<FeeResponseDto> response = new ApiResponse<>();
@@ -37,7 +37,7 @@ public class FeeController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @PostMapping("/")
+    @PostMapping("/fees")
     public ResponseEntity<ApiResponse<FeeResponseDto>> addFee(@RequestBody FeeRequestDto feeRequestDto){
         FeeResponseDto addedFee = feeService.addFee(feeRequestDto);
         ApiResponse<FeeResponseDto> response = new ApiResponse<>();
@@ -47,7 +47,7 @@ public class FeeController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
-    @DeleteMapping("/{feeId}")
+    @DeleteMapping("/fees/{feeId}")
     public ResponseEntity<ApiResponse<String>> deleteFee(@PathVariable Long feeId){
         String message = feeService.deleteFee(feeId);
         ApiResponse<String> response = new ApiResponse<>();
@@ -57,7 +57,7 @@ public class FeeController {
         return ResponseEntity.status(200).body(response);
     }
 
-    @PutMapping("/{feeId}")
+    @PutMapping("/fees/{feeId}")
     public ResponseEntity<ApiResponse<FeeResponseDto>> updateFee(@PathVariable Long feeId, @RequestBody FeeRequestDto feeRequestDto){
         FeeResponseDto updatedFee = feeService.upDateFee(feeId, feeRequestDto);
         ApiResponse<FeeResponseDto> response = new ApiResponse<>();

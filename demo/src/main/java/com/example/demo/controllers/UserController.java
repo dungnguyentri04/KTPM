@@ -51,7 +51,7 @@ public class UserController {
         return null;
     }
 
-    @GetMapping("/allUsers")
+    @GetMapping("/users/allUsers")
     public ResponseEntity<?> getAllUsers(){
         List<UserResponseDto> userDtoList = userService.getAllUser();
         ApiResponse<List<UserResponseDto>> apiResponse = new ApiResponse<>();

@@ -19,6 +19,15 @@ public class Demographics {
         OTHER
     }
 
+    public enum Relationship{
+        SPOUSE,
+        CHILD,
+        OWNER,
+        PARENT,
+        GRANDPARENT,
+        OTHER
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -27,7 +36,7 @@ public class Demographics {
     @JoinColumn(name="household_id")
     private Household household;
 
-    @OneToMany(mappedBy = "demographics")
+    @OneToMany(mappedBy = "demographics",cascade = CascadeType.ALL)
     private List<TemporaryResidence> temporaryResidences;
 
     @ManyToOne
@@ -39,6 +48,9 @@ public class Demographics {
     private User deletedUserId;
 
     private Boolean isOwner;
+
+    @Enumerated(EnumType.STRING)
+    private Relationship relationship;
 
     private String name;
 

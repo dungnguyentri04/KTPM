@@ -21,16 +21,17 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "createdUserId")
+    @OneToMany(mappedBy = "createdUserId", cascade = CascadeType.ALL)
     private List<Demographics> demographicsCreated;
 
-    @OneToMany(mappedBy = "deletedUserId")
+    @OneToMany(mappedBy = "deletedUserId", cascade = CascadeType.ALL)
     private List<Demographics> demographicsDeleted;
 
     private String userName;
 
     private String password;
 
+    @Enumerated(EnumType.STRING)
     private UserRole role;
 
     private String phoneNumber;

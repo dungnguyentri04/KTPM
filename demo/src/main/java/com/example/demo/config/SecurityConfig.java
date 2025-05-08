@@ -56,7 +56,9 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll())
+//                        .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
+                                .anyRequest().permitAll()
+                       )
                 .formLogin(login->
                         login.loginPage("/login")
                                 .loginProcessingUrl("/process-login")

@@ -10,7 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
@@ -25,6 +27,9 @@ public class DemographicController {
         response.setStatus("success");
         response.setMessage("Demographics retrieved successfully");
         response.setData(demographicResponseDtos);
+        Map<String, Object> metadata = new HashMap<>();
+        metadata.put("total", demographicResponseDtos.size());
+        response.setMetadata(metadata);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
@@ -70,9 +75,9 @@ public class DemographicController {
     }
 
     //xem lai cach tao api
-    @GetMapping("/demographics/households/{househouldId}")
-    public ResponseEntity<ApiResponse<List<DemographicsResponseDto>>> getHouseholdDemographics(@PathVariable Long househouldId){
-        List<DemographicsResponseDto> demographicResponseDtos = demographicService.getHouseholdDemographics(househouldId);
+    @GetMapping("/demographics/households/{householdId}")
+    public ResponseEntity<ApiResponse<List<DemographicsResponseDto>>> getHouseholdDemographics(@PathVariable Long householdId){
+        List<DemographicsResponseDto> demographicResponseDtos = demographicService.getHouseholdDemographics(householdId);
         ApiResponse<List<DemographicsResponseDto>> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Demographics retrieved successfully");

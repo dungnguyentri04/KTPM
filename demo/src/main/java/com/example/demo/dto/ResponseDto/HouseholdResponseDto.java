@@ -14,7 +14,7 @@ import java.util.List;
 public class HouseholdResponseDto {
     private Long id;
 
-    private List<DemographicsRequestDto> demographicsList;
+//    private List<DemographicsResponseDto> demographicsList;
 
     private String ownerName;
 
@@ -22,9 +22,9 @@ public class HouseholdResponseDto {
 
     private String location;
 
-    private Integer areaCode;
+    private int areaCode;
 
-    private Integer numberOfPeople;
+    private int numberOfPeople;
 
     private Date createdAt;
 

@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class FeeRequestDto {
-    private TypeOfFee type;
+    private String type;
 
     private String name;
 

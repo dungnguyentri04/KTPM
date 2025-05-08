@@ -18,11 +18,7 @@ public class ContributionRequestDto {
 
     private double money;
 
-    private double price;
-
-    private String status;
-
-    private Date paymentDate;
+//    private double price;
 
     private Date deadline;
 

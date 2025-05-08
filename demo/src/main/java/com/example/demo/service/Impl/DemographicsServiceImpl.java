@@ -33,7 +33,7 @@ public class DemographicsServiceImpl implements DemographicService {
         List<DemographicsResponseDto> demographicsResponseDtos = demographics.stream()
                 .map(demographic -> modelMapper.map(demographic, DemographicsResponseDto.class))
                 .toList();
-        return null;
+        return demographicsResponseDtos;
     }
 
     @Override
@@ -46,6 +46,7 @@ public class DemographicsServiceImpl implements DemographicService {
 
     @Override
     public DemographicsResponseDto addDemographic(@RequestBody DemographicsRequestDto demographicRequestDto) {
+        //kiem tra nhan khau trung lap
         Demographics demographic = modelMapper.map(demographicRequestDto, Demographics.class);
         Demographics savedDemographic = demographicsRepository.save(demographic);
         return modelMapper.map(savedDemographic, DemographicsResponseDto.class);

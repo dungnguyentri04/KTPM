@@ -42,8 +42,8 @@ public class FeeServiceImpl implements FeeService {
     @Override
     public FeeResponseDto addFee(FeeRequestDto feeRequestDto) {
         Fee fee = modelMapper.map(feeRequestDto,Fee.class);
+        fee.setType(Fee.TypeOfFee.valueOf(feeRequestDto.getType()));
         Fee saveFee = feeRepository.save(fee);
-
         return modelMapper.map(saveFee, FeeResponseDto.class);
     }
 
@@ -54,7 +54,7 @@ public class FeeServiceImpl implements FeeService {
         );
 
         // Update the existing fee's properties
-        existingFee.setType(feeRequestDto.getType());
+        existingFee.setType(Fee.TypeOfFee.valueOf(feeRequestDto.getType()));
         existingFee.setName(feeRequestDto.getName());
         existingFee.setCostStandard(feeRequestDto.getCostStandard());
         existingFee.setUpdatedAt(new Date());

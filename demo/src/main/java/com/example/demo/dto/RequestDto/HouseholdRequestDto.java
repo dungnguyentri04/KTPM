@@ -6,15 +6,12 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Data Transfer Object for Household entity.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseholdRequestDto {
     //ID for demographics
-    private List<DemographicsRequestDto> demographicsList;
+//    private List<HouseholdMemberDto> householdMemberDtos;
 
     private String ownerName;
 
@@ -22,9 +19,11 @@ public class HouseholdRequestDto {
 
     private String location;
 
-    private Integer areaCode;
+    private int areaCode;
 
-    private Integer numberOfPeople;
+//    private int numberOfPeople;
 
     private String citizenIdOwner;
+
+    private Long ownerId;
 }

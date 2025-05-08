@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,23 +19,25 @@ public class Household {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToMany(mappedBy = "household")
-    private List<Demographics> demographicsList;
+    @OneToMany(mappedBy = "household",cascade = CascadeType.ALL)
+    private List<Demographics> demographicsList = new ArrayList<>();
+
+    private Long ownerId;
 
     private String ownerName;
+
+    private String citizenIdOwner;
 
     private String numberOfHousehold;
 
     private String location;
 
-    private Integer areaCode;
+    private int areaCode;
 
-    private Integer numberOfPeople;
+    private int numberOfPeople;
 
     private Date createdAt;
 
     private Date updateAt;
-
-    private String citizenIdOwner;
 
 }

@@ -1,0 +1,38 @@
+1.thêm các default value . ví dụ Role User thay vì để enum trong User
+2.service nên trả về các ApiResponse 3
+3.Sửa lại phần đường dẫn api 3
+5.Kiểm tra dữ liệu đầu vào 3
+6.Kiểm tra role User khi chuyển từ string sang enum ở phần thêm user
+7.Thay đổi user?
+8.Check những đối tượng đã trùng lặp trước khi lưu
+9.Xử lý các loại phí ( nhiều loại type với số tiền và các cách tính tiền khác nhau )
+10.Mapper tách ra
+11.Có nên sử dụng map, json để trả về
+12.sửa khi thêm + số người. bớt số nhân khẩu
+13.Xem phan created_at, updated_at
+14.json util trong contribute
+15.costStandard va money??
+16.BANG HOA DON??
+17.dien tich??
+18.demographicRequest trong householdrequest -> dung Id
+19.update : tra ve cac thuoc tinh duoc update, xu ly chi update vai thuoc tinh(patch??)
+20.Thêm thuộc tính người dùng
+21.các api cùng kết quả nhưng admin và user . ví dụ cùng xem khoản thu nhưng với 2 role khác nhau
+22.update phan demographic con thieu
+23.quan hệ chủ hộ
+24.kiem tra nhan khau trung lap
+25.update?????
+26.numberofpeople trong household xu ly
+27.kiem tra exception khi truyen list member cho api add household. co can dung transactional cho viec nay khong neu xay ra loi
+28.owner name trong add household
+29.ten chu ho nen cap nhat khi biet duoc ai la chu ho chu khong nen nhap thong tin???
+30.danh sách demographic chỉ lấy những demographic chưa có trong household nào
+Sừ dụng strategy pattern
+phí bắt buộc :
+    điện , nước , internet : lấy từ công ty điện nước
+    phí gửi xe : thu theo số xe
+    phí vệ sinh : thu theo số người
+    phí dịch vụ : 2500 - 16500k / m2
+    phí quản lý : 7000k / m2
+Các khoản đóng góp : đóng góp vì người nghèo, quỹ biển đảo, ... ( thu theo tinh thần tự nguyện )
+?mỗi cách tính phí thì đầu vào là các thuộc tính khác nhau => lưu database như nào
