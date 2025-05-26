@@ -10,6 +10,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,6 +44,7 @@ public class FeeServiceImpl implements FeeService {
     public FeeResponseDto addFee(FeeRequestDto feeRequestDto) {
         Fee fee = modelMapper.map(feeRequestDto,Fee.class);
         fee.setType(Fee.TypeOfFee.valueOf(feeRequestDto.getType()));
+        fee.setCreatedAt(LocalDate.now());
         Fee saveFee = feeRepository.save(fee);
         return modelMapper.map(saveFee, FeeResponseDto.class);
     }
@@ -57,7 +59,7 @@ public class FeeServiceImpl implements FeeService {
         existingFee.setType(Fee.TypeOfFee.valueOf(feeRequestDto.getType()));
         existingFee.setName(feeRequestDto.getName());
         existingFee.setCostStandard(feeRequestDto.getCostStandard());
-        existingFee.setUpdatedAt(new Date());
+        existingFee.setUpdatedAt(LocalDate.now());
 
         Fee updatedFee = feeRepository.save(existingFee);
 

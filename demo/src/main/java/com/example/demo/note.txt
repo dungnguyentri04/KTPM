@@ -1,0 +1,24 @@
+
+5.Kiểm tra dữ liệu đầu vào 3
+6.Kiểm tra role User khi chuyển từ string sang enum ở phần thêm user
+12.sửa khi thêm + số người. bớt số nhân khẩu
+16.BANG HOA DON??
+20.Thêm thuộc tính người dùng
+21.các api cùng kết quả nhưng admin và user . ví dụ cùng xem khoản thu nhưng với 2 role khác nhau
+25.update?????
+35.hien thi theo id ( khi nhap id thi tu hien thi theo thogn tin doi tuowng)
+api xoa contribution trong viewhousehold
+sua lai duong link cac nut bam
+update
+Cac thuoc tinh
+Số phòng, description cho hoá đơn
+thống kế tổng hoá đơn cần đóng
+
+
+    điện , nước , internet : lấy từ công ty điện nước
+    phí gửi xe : thu theo số xe
+    phí vệ sinh : thu theo số người
+    phí dịch vụ : 2500 - 16500k / m2
+    phí quản lý : 7000k / m2
+Các khoản đóng góp : đóng góp vì người nghèo, quỹ biển đảo, ... ( thu theo tinh thần tự nguyện )
+?mỗi cách tính phí thì đầu vào là các thuộc tính khác nhau => lưu database như nào

@@ -6,11 +6,13 @@ import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
@@ -57,17 +59,18 @@ public class SecurityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
 //                        .requestMatchers("/login", "/register", "/css/**", "/js/**").permitAll()
-                                .anyRequest().permitAll()
+                                .requestMatchers("/css/**", "/js/**", "/images/**").permitAll()
+                                .anyRequest().authenticated()
                        )
                 .formLogin(login->
                         login.loginPage("/login")
                                 .loginProcessingUrl("/process-login")
-                                .defaultSuccessUrl("/index", true)
+                                .defaultSuccessUrl("/test", true)
                                 .permitAll()// form xác nhận
                 )
                 .logout(logout -> logout
                         .logoutUrl("/logout") // URL để đăng xuất
-                        .logoutSuccessUrl("/index") // URL chuyển hướng sau khi đăng xuất thành công
+                        .logoutSuccessUrl("/login") // URL chuyển hướng sau khi đăng xuất thành công
                         .permitAll()
                 );
         return http.build();
@@ -89,6 +92,12 @@ public class SecurityConfig {
 
     @Bean
     public PasswordEncoder passwordEncoder(){
-        return new BCryptPasswordEncoder();
+        return NoOpPasswordEncoder.getInstance();
     }
+
+
+//    @Bean
+//    WebSecurityCustomizer customizeWebSecurity(){
+//        return (web) -> web.ignoring().requestMatchers("/static/**", "/css/**", "/js/**", "/images/**");
+//    }
 }

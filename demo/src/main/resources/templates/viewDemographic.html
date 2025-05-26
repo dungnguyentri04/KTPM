@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{base::layout(~{::content})}">
+
+<div class="container" th:fragment="content">
+	<div class="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">View Demographic</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Full Name</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="name"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Email</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="email"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Phone</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="phone"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Gender</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="gender"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Birthday</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="birthday"></p>
+									</div>
+								</div>
+							</div>
+
+
+							<div class="col-md-6 col-lg-6">
+
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Nationality</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="nationality"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Ethnic</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="ethnic"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Job</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="job"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">Workplace</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="workplace"></p>
+									</div>
+								</div>
+								<hr>
+								<div class="row">
+									<div class="col-sm-4">
+										<p class="mb-0">CCCD</p>
+									</div>
+									<div class="col-sm-8">
+										<p class="text-muted mb-0" id="citizenId"></p>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="btn btn-success">Update</button>
+						<button class="btn btn-danger" onclick="history.back()">Back</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script>
+		const params = new URLSearchParams(window.location.search);
+		const demographicId = params.get("id");
+
+		// Gọi API để lấy thông tin user
+		fetch('/api/demographics/' + demographicId)
+			.then(res => {
+				if (!res.ok) {
+					throw new Error('Không tìm thấy user');
+				}
+				return res.json();
+			})
+			.then(response => {
+				const userData = response.data;
+				console.log(userData)
+				// Gán dữ liệu vào HTML
+				document.getElementById("name").textContent = userData.name;
+				// document.getElementById("alias").textContent = userData.alias;
+				document.getElementById("birthday").textContent = userData.birthday;
+				document.getElementById("gender").textContent = userData.sex;
+				document.getElementById("nationality").textContent = userData.nationality;
+				document.getElementById("ethnic").textContent = userData.ethnic;
+				document.getElementById("job").textContent = userData.job;
+				document.getElementById("citizenId").textContent = userData.citizenId;
+				document.getElementById("workplace").textContent = userData.workplace;
+				document.getElementById("phone").textContent = userData.phoneNumber;
+				document.getElementById("email").textContent = userData.email;
+				// document.getElementById("citizenId").textContent = userData.citizenId;
+			})
+			.catch(err => {
+				alert("Lỗi: " + err.message);
+			});
+	</script>
+</div>

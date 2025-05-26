@@ -8,17 +8,17 @@ import java.util.List;
 
 public interface HouseholdService {
 
-    List<HouseholdResponseDto> getAllHouseholds();
+     public List<HouseholdResponseDto> getAllHouseholds();
 
-     HouseholdResponseDto addHousehold(HouseholdRequestDto householdRequestDto);
+     public HouseholdResponseDto addHousehold(HouseholdRequestDto householdRequestDto);
 
-     HouseholdResponseDto getHouseholdById(Long id);
+     public HouseholdResponseDto getHouseholdById(Long id);
 
-     HouseholdResponseDto updateHousehold(Long id, HouseholdRequestDto householdRequestDto);
+     public HouseholdResponseDto updateHousehold(Long id, HouseholdRequestDto householdRequestDto);
 
-     String deleteHousehold(Long id);
+     public String deleteHousehold(Long id);
 
-     String addDemographicToHousehold(Long id, HouseholdMemberDto householdMemberDto);
+     public String addDemographicToHousehold(Long id, HouseholdMemberDto householdMemberDto);
 
 
     // Household getHouseholdById(Long id);

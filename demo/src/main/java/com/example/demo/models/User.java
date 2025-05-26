@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class User {
     @OneToMany(mappedBy = "deletedUserId", cascade = CascadeType.ALL)
     private List<Demographics> demographicsDeleted;
 
+    @Column(unique = true)
     private String userName;
 
     private String password;
@@ -36,8 +38,8 @@ public class User {
 
     private String phoneNumber;
 
-    private Date created_at;
+    private LocalDate created_at;
 
-    private Date updated_at;
+    private LocalDate updated_at;
 
 }

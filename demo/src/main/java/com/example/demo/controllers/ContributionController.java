@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @Controller
 @RequestMapping("/api")
@@ -58,9 +59,19 @@ public class ContributionController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @PatchMapping("/contributes/{id}")
+    public ResponseEntity<ApiResponse<ContributionResponseDto>> updateStatusContribute(@PathVariable Long id, @RequestBody Map<String, String> contributionRequestDto){
+        ContributionResponseDto contributionResponseDto = contributionService.patchContribution(id, contributionRequestDto);
+        ApiResponse<ContributionResponseDto> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Contribution updated successfully");
+        response.setData(contributionResponseDto);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
     @GetMapping("/households/{householdId}/contributes")
-    public ResponseEntity<ApiResponse<List<ContributionResponseDto>>> getContributeByHousehold(@PathVariable Long householdId){
-        List<ContributionResponseDto> contributionResponseDtos = contributionService.getContributeByHousehold(householdId);
+    public ResponseEntity<ApiResponse<List<ContributionResponseDto>>> getContributeByHousehold(@PathVariable Long householdId, @RequestParam("status") String status){
+        List<ContributionResponseDto> contributionResponseDtos = contributionService.getContributeByHousehold(householdId, status);
         ApiResponse<List<ContributionResponseDto>> response = new ApiResponse<>();
         response.setStatus("success");
         response.setMessage("Contribute found");

@@ -2,6 +2,8 @@ package com.example.demo.dto.RequestDto;
 
 import com.example.demo.dto.ResponseDto.UserResponseDto;
 import com.example.demo.models.Demographics.Gender;
+
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -25,9 +27,9 @@ public class DemographicsRequestDto {
 
     private String name;
 
-    private String alias;
+    private String email;
 
-    private Date birthday;
+    private LocalDate birthday;
 
     private Gender sex;
 
@@ -47,13 +49,15 @@ public class DemographicsRequestDto {
 
     private String issuingLocation;
 
-    private Date issuingDate;
+    private LocalDate issuingDate;
 
     private String reasonForMoving;
 
-    private Date movingDate;
+    private LocalDate movingDate;
 
     private String reasonForLeaving;
 
-    private Date leavingDate;
+    private LocalDate leavingDate;
+
+    private String phoneNumber;
 }

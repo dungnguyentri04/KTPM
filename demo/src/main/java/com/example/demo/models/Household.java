@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -26,6 +27,7 @@ public class Household {
 
     private String ownerName;
 
+    @Column(unique = true)
     private String citizenIdOwner;
 
     private String numberOfHousehold;
@@ -36,8 +38,8 @@ public class Household {
 
     private int numberOfPeople;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updateAt;
+    private LocalDate updateAt;
 
 }

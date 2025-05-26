@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 
@@ -49,7 +50,9 @@ public class ContributionServiceImpl implements ContributionService {
         contribution.setMoney(money);
         contribution.setStatus(Contribution.StatusContribution.valueOf("IN_COMPLETE"));
         contribution.setFee(fee);
+        contribution.setFeeName(fee.getName());
         contribution.setHousehold(household);
+        contribution.setCreatedAt(LocalDate.now());
         contributionRepository.save(contribution);
         return modelMapper.map(contribution, ContributionResponseDto.class);
     }
@@ -81,45 +84,61 @@ public class ContributionServiceImpl implements ContributionService {
     }
 
     @Override
-    public List<ContributionResponseDto> getContributeByHousehold(Long id) {
+    public List<ContributionResponseDto> getContributeByHousehold(Long id, String status) {
         Household household = householdRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Household not found")
         );
         List<Contribution> contributions = contributionRepository.findByHouseholdId(id); // List<Contribution> contributions = contributionRepository.findByHousehold(household>
+        if (status.equals("IN_COMPLETE")) {
+            contributions = contributions.stream()
+                    .filter(contribution -> contribution.getStatus().equals(Contribution.StatusContribution.IN_COMPLETE))
+                    .toList();
+        }
+        else if (status.equals("COMPLETE")) {
+            contributions = contributions.stream()
+                    .filter(contribution -> contribution.getStatus().equals(Contribution.StatusContribution.COMPLETE))
+                    .toList();
+        }
         List<ContributionResponseDto> contributionResponseDtos = contributions.stream()
                 .map(contribution -> modelMapper.map(contribution, ContributionResponseDto.class))
                 .toList();
         return contributionResponseDtos;
     }
 
+    @Override
+    public ContributionResponseDto patchContribution(Long id, Map<String, String> contributionRequestDto) {
+        Contribution contribution = contributionRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Contribution not found")
+        );
+        if (contributionRequestDto.containsKey("status")) {
+            contribution.setStatus(Contribution.StatusContribution.valueOf(contributionRequestDto.get("status")));
+            contribution.setPaymentDate(LocalDate.now());
+        }
+        contributionRepository.save(contribution);
+        return modelMapper.map(contribution, ContributionResponseDto.class);
+    }
+
     private double feeCaculator(Household household, Fee fee, ContributionRequestDto contributionRequestDto) {
         double price;
         double money = contributionRequestDto.getMoney();
-        Map<String, Object> attributes = contributionRequestDto.getAttributes();
         if (fee.getType().equals(Fee.TypeOfFee.MANDATORY)){
-            double area = 0;
-            if (attributes != null){
-                area = (double) attributes.getOrDefault("area", 0.0);
-            }
             switch (fee.getName()) {
-                case "Electricity":
-                    price = money;
-                    break;
-                case "Water":
+                case "Electricity", "Water":
                     price = money;
                     break;
                 case "Cleaning":
                     int numberOfPeople = household.getNumberOfPeople();
                     price = money * numberOfPeople;
                     break;
-                case "Service":
-                    price = money * area;
-                    break;
-                case "Manage":
+                case "Service", "Manage":
+                    int area = household.getAreaCode();
+                    if (area == 0){
+                        price = money;
+                    }
                     price = money * area;
                     break;
                 case "Vehicle":
-                    int numberOfVehicles = (int) attributes.getOrDefault("numberOfVehicles", 0);
+                    int numberOfVehicles = contributionRequestDto.getVehicle();
                     price = money * numberOfVehicles;
                     break;
                 default:

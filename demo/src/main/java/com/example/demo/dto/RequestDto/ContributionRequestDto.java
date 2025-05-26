@@ -1,5 +1,6 @@
 package com.example.demo.dto.RequestDto;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
@@ -20,8 +21,8 @@ public class ContributionRequestDto {
 
 //    private double price;
 
-    private Date deadline;
+    private LocalDate deadline;
 
-    private Map<String, Object> attributes;
+    private int vehicle;
 
 }

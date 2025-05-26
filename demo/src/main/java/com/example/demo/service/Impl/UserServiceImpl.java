@@ -54,6 +54,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public UserResponseDto addUser(UserRequestDto userRequestDto) {
         //check user ton tai
+        String userName = userRequestDto.getUserName();
+        if (userRepository.findByUserName(userName) != null) {
+            throw new NotFoundException("User already exists");
+        }
         User user = modelMapper.map(userRequestDto, User.class);
         UserRole role = UserRole.valueOf(userRequestDto.getRole());
         User saveUser = userRepository.save(user);

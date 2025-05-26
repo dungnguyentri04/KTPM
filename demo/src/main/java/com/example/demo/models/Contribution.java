@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -31,19 +32,22 @@ public class Contribution {
 
     private double money;
 
+    private String feeName;
+
     private double price;
 
+    @Enumerated(EnumType.STRING)
     private StatusContribution status;
 
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
-    private Date deadline;
+    private LocalDate deadline;
 
     @Column(columnDefinition = "json")
     private String attributes;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updateAt;
+    private LocalDate updateAt;
 
 }

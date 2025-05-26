@@ -25,5 +25,5 @@ public class HouseholdRequestDto {
 
     private String citizenIdOwner;
 
-    private Long ownerId;
+//    private Long ownerId;
 }

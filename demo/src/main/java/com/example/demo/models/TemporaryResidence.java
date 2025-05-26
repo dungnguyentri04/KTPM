@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -31,16 +32,16 @@ public class TemporaryResidence {
 
     private String location;
 
-    private Date startedDate;
+    private LocalDate startedDate;
 
-    private Date endedDate;
+    private LocalDate endedDate;
 
-    private Date dateOfRegistation;
+    private LocalDate dateOfRegistation;
 
     private String reason;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 }

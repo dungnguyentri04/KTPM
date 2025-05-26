@@ -6,6 +6,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -29,8 +30,8 @@ public class Fee {
 
     private Long costStandard;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 }

@@ -14,6 +14,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -48,6 +50,17 @@ public class DemographicsServiceImpl implements DemographicService {
     public DemographicsResponseDto addDemographic(@RequestBody DemographicsRequestDto demographicRequestDto) {
         //kiem tra nhan khau trung lap
         Demographics demographic = modelMapper.map(demographicRequestDto, Demographics.class);
+        String email = demographicRequestDto.getEmail();
+        String citizenId = demographicRequestDto.getCitizenId();
+        Demographics existingDemographic = demographicsRepository.findByEmail(email);
+        if (existingDemographic != null) {
+            throw new IllegalArgumentException("Demographic with email " + email + " already exists");
+        }
+        existingDemographic = demographicsRepository.findByCitizenId(citizenId);
+        if (existingDemographic != null) {
+            throw new IllegalArgumentException("Demographic with citizenId " + citizenId + " already exists");
+        }
+        demographic.setCreatedAt(LocalDate.now());
         Demographics savedDemographic = demographicsRepository.save(demographic);
         return modelMapper.map(savedDemographic, DemographicsResponseDto.class);
     }
@@ -66,7 +79,6 @@ public class DemographicsServiceImpl implements DemographicService {
         Demographics existingDemographic = demographicsRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Demographic not found")
         );
-        existingDemographic.setAlias(demographicRequestDto.getAlias());
         existingDemographic.setEthnic(demographicRequestDto.getEthnic());
         existingDemographic.setSex(demographicRequestDto.getSex());
         existingDemographic.setBirthday(demographicRequestDto.getBirthday());
@@ -88,4 +100,5 @@ public class DemographicsServiceImpl implements DemographicService {
                 .toList();
         return demographicsResponseDtos;
     }
+
 }

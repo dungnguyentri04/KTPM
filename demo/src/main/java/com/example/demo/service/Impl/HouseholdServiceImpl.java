@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -49,14 +50,18 @@ public class HouseholdServiceImpl implements HouseholdService {
         //kiem tra demographics co ton tai khong; da thuoc household nao chua
         //xem lai logic
 
-        Demographics demographics = demographicsRepository.findById(householdRequestDto.getOwnerId()).orElseThrow(
-                () -> new NotFoundException("Demographics not found")
-        );
+        Demographics demographics = demographicsRepository.findByCitizenId(householdRequestDto.getCitizenIdOwner());
+        //check demographics khong ton tai
+        if (demographics == null) {
+            throw new NotFoundException("Demographics not found");
+        }
         demographics.setRelationship(Relationship.OWNER);
         demographics.setIsOwner(true);
         // Save entity to the database
         household.getDemographicsList().add(demographics);
         household.setNumberOfPeople(household.getDemographicsList().size());
+        household.setOwnerId(demographics.getId());
+        household.setCreatedAt(LocalDate.now());
         Household savedHousehold = householdRepository.save(household);
         demographics.setHousehold(household);
         demographicsRepository.save(demographics);
@@ -86,7 +91,7 @@ public class HouseholdServiceImpl implements HouseholdService {
         existingHousehold.setAreaCode(householdRequestDto.getAreaCode());
 //        existingHousehold.setNumberOfPeople(householdRequestDto.getNumberOfPeople());
         existingHousehold.setCitizenIdOwner(householdRequestDto.getCitizenIdOwner());
-        existingHousehold.setUpdateAt(new Date());
+        existingHousehold.setUpdateAt(LocalDate.now());
         // Save the updated household to the database
         Household updatedHousehold = householdRepository.save(existingHousehold);
 
@@ -114,6 +119,9 @@ public class HouseholdServiceImpl implements HouseholdService {
         Demographics demographics = demographicsRepository.findById(householdMemberDto.getId()).orElseThrow(
                 () -> new NotFoundException("Demographics not found")
         );
+        if (demographics.getHousehold() != null) {
+            throw new IllegalArgumentException("Demographic is already in a household");
+        }
         demographics.setRelationship(Relationship.valueOf(householdMemberDto.getRelationship()));
         demographics.setIsOwner(householdMemberDto.getIsOwner());
         demographics.setHousehold(household);
@@ -123,6 +131,5 @@ public class HouseholdServiceImpl implements HouseholdService {
         householdRepository.save(household);
         return "Add demographic to household successfully";
     }
-
 
 }

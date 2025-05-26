@@ -4,6 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.Map;
 
@@ -21,10 +22,13 @@ public class ContributionResponseDto {
 
     private String status;
 
-    private Date paymentDate;
+    private LocalDate paymentDate;
 
-    private Date deadline;
+    private String feeName;
 
-    private Map<String, Object> attributes;
+    private LocalDate deadline;
 
+    private LocalDate createdAt;
+
+    private LocalDate updateAt;
 }

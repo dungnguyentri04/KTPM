@@ -3,6 +3,7 @@ package com.example.demo.models;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -54,9 +55,11 @@ public class Demographics {
 
     private String name;
 
-    private String alias;
+    private String email;
 
-    private Date birthday;
+    private String phoneNumber;
+
+    private LocalDate birthday;
 
     private Gender sex;
 
@@ -72,6 +75,7 @@ public class Demographics {
 
     private String workplace;
 
+    @Column(unique = true)
     private String citizenId;
 
     private String issuingLocation;
@@ -80,14 +84,14 @@ public class Demographics {
 
     private String reasonForMoving;
 
-    private Date movingDate;
+    private LocalDate movingDate;
 
     private String reasonForLeaving;
 
-    private Date leavingDate;
+    private LocalDate leavingDate;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 
 }

@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -31,9 +32,11 @@ public class DemographicsResponseDto {
 
     private String name;
 
-    private String alias;
+    private String email;
 
-    private Date birthday;
+    private String phoneNumber;
+
+    private LocalDate birthday;
 
     private Gender sex;
 
@@ -51,19 +54,21 @@ public class DemographicsResponseDto {
 
     private String citizenId;
 
+    private String relationship;
+
     private String issuingLocation;
 
     private Date issuingDate;
 
     private String reasonForMoving;
 
-    private Date movingDate;
+    private LocalDate movingDate;
 
     private String reasonForLeaving;
 
-    private Date leavingDate;
+    private LocalDate leavingDate;
 
-    private Date createdAt;
+    private LocalDate createdAt;
 
-    private Date updatedAt;
+    private LocalDate updatedAt;
 }
