@@ -1,36 +1,22 @@
 package com.example.demo.dto.ResponseDto;
 
-import com.example.demo.dto.RequestDto.HouseholdRequestDto;
-import com.example.demo.dto.RequestDto.TemporaryResidenceRequestDto;
-import com.example.demo.models.Demographics;
 import com.example.demo.models.Demographics.Gender;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 import java.time.LocalDate;
 import java.util.Date;
-import java.util.List;
 
-//xem lai cac thuoc tinh
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class DemographicsResponseDto {
     private Long id;
 
-//    private Long householdId;
-
-//    private List<TemporaryResidenceResponseDto> temporaryResidences;
-
-//    private Long createdUserId;
-//
-//    private Long deletedUserId;
-
     private Boolean isOwner;
 
-    private String name;
+    private String nationality;
 
     private String email;
 
@@ -38,11 +24,13 @@ public class DemographicsResponseDto {
 
     private LocalDate birthday;
 
+    private int NumofCar;
+
     private Gender sex;
 
-    private String placeOfBirth;
+    private String issuingLocation;
 
-    private String nationality;
+    private String name;
 
     private String countryside;
 
@@ -56,9 +44,11 @@ public class DemographicsResponseDto {
 
     private String relationship;
 
-    private String issuingLocation;
+    private String placeOfBirth;
 
     private Date issuingDate;
+
+    private int age;
 
     private String reasonForMoving;
 
@@ -71,4 +61,32 @@ public class DemographicsResponseDto {
     private LocalDate createdAt;
 
     private LocalDate updatedAt;
+
+    private int PersonNum;
+
+    private String Address;
+
+private String permanentAddress;
+
+private String temporaryAddress;
+
+private String householdCode;
+
+private LocalDate registrationDate;
+
+private String stayDuration;
+
+private String emergencyContactName;
+
+private String emergencyContactPhone;
+
+private String emergencyContactRelation;
+
+private String educationLevel;
+
+private String maritalStatus;
+
+private String healthStatus;
+
+private String note;
 }
