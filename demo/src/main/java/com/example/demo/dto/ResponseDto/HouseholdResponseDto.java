@@ -1,12 +1,10 @@
 package com.example.demo.dto.ResponseDto;
 
-import com.example.demo.dto.RequestDto.DemographicsRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -15,15 +13,13 @@ import java.util.List;
 public class HouseholdResponseDto {
     private Long id;
 
-//    private List<DemographicsResponseDto> demographicsList;
-
     private String ownerName;
 
     private String numberOfHousehold;
 
     private String location;
 
-    private int areaCode;
+    private float areaCode;
 
     private int numberOfPeople;
 
@@ -32,4 +28,46 @@ public class HouseholdResponseDto {
     private LocalDate updateAt;
 
     private String citizenIdOwner;
+
+    private String roomName;
+
+    // 🆕 Trường mở rộng phù hợp nghiệp vụ quản lý hộ dân
+    private String householdType;
+
+    private LocalDate registrationDate;
+
+    private String status;
+
+    private String note;
+
+    private String createdBy;
+
+    private String electricMeterCode;
+
+    private String waterMeterCode;
+
+    private String ownershipType;
+
+    private LocalDate startDateLiving;
+
+    private LocalDate endDateLiving;
+
+    private Boolean isEligibleForDiscount;
+
+    private Integer discountPercent;
+
+    private String buildingCode;
+
+    private Integer floorNumber;
+
+    private Boolean hasPet;
+
+    private Integer parkingSlotCount;
+
+    private Boolean fireSafetyCertified;
+
+    private String lastUpdatedBy;
+
+    // 🧍‍♂️ Danh sách thành viên hộ dân (nếu cần trả về)
+    private List<DemographicsResponseDto> demographicsList;
 }
