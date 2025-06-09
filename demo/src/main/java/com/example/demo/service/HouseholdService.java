@@ -20,6 +20,10 @@ public interface HouseholdService {
 
      public String addDemographicToHousehold(Long id, HouseholdMemberDto householdMemberDto);
 
+     public String deleteDemographicFromHousehold(Long id, Long demographicId);
+
+     public String updateDemographicInHousehold(Long id, Long demographicId, HouseholdMemberDto householdMemberDto);
+
 
     // Household getHouseholdById(Long id);
     // Household createHousehold(Household household);

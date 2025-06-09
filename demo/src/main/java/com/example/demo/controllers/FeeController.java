@@ -67,4 +67,54 @@ public class FeeController {
         response.setData(updatedFee);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @PatchMapping("/fees/{feeId}")
+    public ResponseEntity<ApiResponse<FeeResponseDto>> updateStatusFee(@PathVariable Long feeId, FeeRequestDto feeRequestDto){
+        FeeResponseDto updatedFee = feeService.patchFee(feeId, feeRequestDto);
+        ApiResponse<FeeResponseDto> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Fee updated successfully");
+        response.setData(updatedFee);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/fees/household/{householdId}")
+    public ResponseEntity<ApiResponse<List<FeeResponseDto>>> getFeesByHouseholdId(@PathVariable Long householdId){
+        List<FeeResponseDto> feeResponseDtos = feeService.getFeesByHouseholdId(householdId);
+        ApiResponse<List<FeeResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Fees retrieved successfully");
+        response.setData(feeResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/fees/user/{userId}")
+    public ResponseEntity<ApiResponse<List<FeeResponseDto>>> getFeesByUserId(@PathVariable Long userId){
+        List<FeeResponseDto> feeResponseDtos = feeService.getFeesByUserId(userId);
+        ApiResponse<List<FeeResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Fees retrieved successfully");
+        response.setData(feeResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/fees/household/{householdId}/user/{userId}")
+    public ResponseEntity<ApiResponse<List<FeeResponseDto>>> getFeesByHouseholdIdAndUserId(@PathVariable Long householdId, @PathVariable Long userId){
+        List<FeeResponseDto> feeResponseDtos = feeService.getFeesByHouseholdIdAndUserId(householdId, userId);
+        ApiResponse<List<FeeResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Fees retrieved successfully");
+        response.setData(feeResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/fees/household/{householdId}/user/{userId}/status/{status}")
+    public ResponseEntity<ApiResponse<List<FeeResponseDto>>> getFeesByHouseholdIdAndUserIdAndStatus(@PathVariable Long householdId, @PathVariable Long userId, @PathVariable String status){
+        List<FeeResponseDto> feeResponseDtos = feeService.getFeesByHouseholdIdAndUserIdAndStatus(householdId, userId, status);
+        ApiResponse<List<FeeResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Fees retrieved successfully");
+        response.setData(feeResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
 }

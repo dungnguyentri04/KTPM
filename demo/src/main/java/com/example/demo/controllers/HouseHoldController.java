@@ -108,6 +108,36 @@ public class HouseHoldController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @DeleteMapping("/households/{householdId}/demographics/{demographicId}")
+    public ResponseEntity<ApiResponse<String>> deleteDemographicFromHousehold(@PathVariable Long householdId, @PathVariable Long demographicId) {
+        String message = householdService.deleteDemographicFromHousehold(householdId, demographicId);
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Delete demographic from household successfully");
+        response.setData(message);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @PutMapping("/households/{householdId}/demographics/{demographicId}")
+    public ResponseEntity<ApiResponse<String>> updateDemographicInHousehold(@PathVariable Long householdId, @PathVariable Long demographicId, @RequestBody HouseholdMemberDto householdMemberDto) {
+        String message = householdService.updateDemographicInHousehold(householdId, demographicId, householdMemberDto);
+        ApiResponse<String> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Update demographic in household successfully");
+        response.setData(message);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/households/{householdId}/demographics")
+    public ResponseEntity<ApiResponse<List<DemographicsResponseDto>>> getHouseholdDemographics(@PathVariable Long householdId) {
+        List<DemographicsResponseDto> demographicResponseDtos = demographicService.getHouseholdDemographics(householdId);
+        ApiResponse<List<DemographicsResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Get household demographics successfully");
+        response.setData(demographicResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
 
     //get tuỳ chỉnh với các tham số
 
