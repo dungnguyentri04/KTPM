@@ -33,7 +33,14 @@ public class DemographicsServiceImpl implements DemographicService {
     public List<DemographicsResponseDto> getAllDemographics() {
         List<Demographics> demographics = demographicsRepository.findAll();
         List<DemographicsResponseDto> demographicsResponseDtos = demographics.stream()
-                .map(demographic -> modelMapper.map(demographic, DemographicsResponseDto.class))
+                .map(demographic -> {
+                            DemographicsResponseDto demographicResponseDto = modelMapper.map(demographic, DemographicsResponseDto.class);
+                            if (demographic.getBirthday() != null) {
+                                int age = LocalDate.now().getYear() - demographic.getBirthday().getYear();
+                                demographicResponseDto.setAge(age);
+                            }
+                            return demographicResponseDto;
+                        })
                 .toList();
         return demographicsResponseDtos;
     }
@@ -96,7 +103,14 @@ public class DemographicsServiceImpl implements DemographicService {
         );
         List<Demographics> demographics = demographicsRepository.findByHouseholdId(householdId);
         List<DemographicsResponseDto> demographicsResponseDtos = demographics.stream()
-                .map(demographic -> modelMapper.map(demographic, DemographicsResponseDto.class))
+                .map(demographic -> {
+                    DemographicsResponseDto demographicResponseDto = modelMapper.map(demographic, DemographicsResponseDto.class);
+                    if (demographic.getBirthday() != null) {
+                        int age = LocalDate.now().getYear() - demographic.getBirthday().getYear();
+                        demographicResponseDto.setAge(age);
+                    }
+                    return demographicResponseDto;
+                })
                 .toList();
         return demographicsResponseDtos;
     }

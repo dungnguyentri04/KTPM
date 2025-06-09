@@ -44,4 +44,8 @@ public class TemporaryResidence {
 
     private LocalDate updatedAt;
 
+    private String roomName;
+
+    private String demographicName;
+
 }

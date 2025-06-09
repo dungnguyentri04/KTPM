@@ -60,6 +60,8 @@ public class DemographicsResponseDto {
 
     private Date issuingDate;
 
+    private int age;
+
     private String reasonForMoving;
 
     private LocalDate movingDate;

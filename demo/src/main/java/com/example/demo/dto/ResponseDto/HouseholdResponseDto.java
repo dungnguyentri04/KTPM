@@ -23,7 +23,7 @@ public class HouseholdResponseDto {
 
     private String location;
 
-    private int areaCode;
+    private float areaCode;
 
     private int numberOfPeople;
 
@@ -32,4 +32,6 @@ public class HouseholdResponseDto {
     private LocalDate updateAt;
 
     private String citizenIdOwner;
+
+    private String roomName;
 }
