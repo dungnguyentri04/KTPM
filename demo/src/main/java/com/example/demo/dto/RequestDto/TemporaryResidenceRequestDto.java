@@ -1,70 +1,55 @@
 package com.example.demo.dto.RequestDto;
 
-import com.example.demo.models.TemporaryResidence.ResidenceType;
-import java.util.Date;
+import java.time.LocalDate;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-/**
- * Data Transfer Object for TemporaryResidence entity.
- */
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class TemporaryResidenceRequestDto {
-    /**
-     * Unique identifier of the temporary residence record.
-     */
-    private Long id;
+    @NotNull(message = "Demographic id is required")
+    private long demographicId;
 
-    /**
-     * ID of the associated Demographics record.
-     */
-    private DemographicsRequestDto demographics;
+    @NotNull(message = "Residence type is required")
+    private String type;
 
-    /**
-     * Type of residence: TEMPORARY_RESIDENCE or TEMPORARY_ABSENCE.
-     */
-    private ResidenceType type;
-
-    /**
-     * Place where the registration occurred.
-     */
     private String placeOfRegistration;
 
-    /**
-     * Location address for the temporary residence.
-     */
     private String location;
 
-    /**
-     * Date when the temporary residence started.
-     */
-    private Date startedDate;
+    @NotNull(message = "Started date is required")
+    private LocalDate startedDate;
 
-    /**
-     * Date when the temporary residence ended.
-     */
-    private Date endedDate;
+    @NotNull(message = "Ended date is required")
+    private LocalDate endedDate;
 
-    /**
-     * Date when the registration was recorded.
-     */
-    private Date dateOfRegistration;
+    private LocalDate dateOfRegistration;
 
-    /**
-     * Reason for the temporary residence or absence.
-     */
+    @NotNull(message = "Reason is required")
     private String reason;
 
-    /**
-     * Timestamp when the record was created.
-     */
-    private Date createdAt;
+    private String roomName;
 
-    /**
-     * Timestamp when the record was last updated.
-     */
-    private Date updatedAt;
+    private String registeredBy;
+
+    private Boolean isApproved;
+
+    private String approverName;
+
+    private LocalDate approvalDate;
+
+    private String contactAddress;
+
+    private String contactPhone;
+
+    private String idDocumentNumber;
+
+    private String issuedPlace;
+
+    private LocalDate issuedDate;
+
+    private String note;
 }
