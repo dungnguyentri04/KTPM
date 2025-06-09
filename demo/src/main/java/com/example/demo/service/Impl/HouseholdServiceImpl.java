@@ -152,4 +152,40 @@ public class HouseholdServiceImpl implements HouseholdService {
         return "Add demographic to household successfully";
     }
 
+    @Override
+    public String deleteDemographicFromHousehold(Long id, Long demographicId) {
+        Household household = householdRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Household not found")
+        );
+        Demographics demographics = demographicsRepository.findById(demographicId).orElseThrow(
+                () -> new NotFoundException("Demographics not found")
+        );
+        if (demographics.getHousehold() == null) {
+            throw new IllegalArgumentException("Demographic is not in a household");
+        }
+        demographics.setHousehold(null);
+        demographicsRepository.save(demographics);
+        household.getDemographicsList().remove(demographics);
+        household.setNumberOfPeople(household.getDemographicsList().size());
+        householdRepository.save(household);
+        return null;
+    }
+
+    @Override
+    public String updateDemographicInHousehold(Long id, Long demographicId, HouseholdMemberDto householdMemberDto) {
+        Household household = householdRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Household not found")
+        );
+        Demographics demographics = demographicsRepository.findById(demographicId).orElseThrow(
+                () -> new NotFoundException("Demographics not found")
+        );
+        if (demographics.getHousehold() == null) {
+            throw new IllegalArgumentException("Demographic is not in a household");
+        }
+        demographics.setRelationship(Relationship.valueOf(householdMemberDto.getRelationship()));
+        demographics.setIsOwner(householdMemberDto.getIsOwner());
+        demographicsRepository.save(demographics);
+        return null;
+    }
+
 }

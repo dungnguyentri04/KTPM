@@ -4,7 +4,11 @@ import com.example.demo.dto.RequestDto.FeeRequestDto;
 import com.example.demo.dto.ResponseDto.FeeResponseDto;
 import com.example.demo.exception.NotFoundException;
 import com.example.demo.models.Fee;
+import com.example.demo.models.Household;
+import com.example.demo.models.User;
 import com.example.demo.repositories.FeeRepository;
+import com.example.demo.repositories.HouseholdRepository;
+import com.example.demo.repositories.UserRepository;
 import com.example.demo.service.FeeService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +26,15 @@ public class FeeServiceImpl implements FeeService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private UserRepository userRepository;
+
+    @Autowired
+    private HouseholdServiceImpl householdService;
+
+    @Autowired
+    private HouseholdRepository householdRepository;
 
 
     @Override
@@ -74,6 +87,57 @@ public class FeeServiceImpl implements FeeService {
         );
         feeRepository.delete(existingFee);
         return "Deleted fee with id: " + id;
+    }
+
+    @Override
+    public FeeResponseDto getFeeByType(String type) {
+        return null;
+    }
+
+    @Override
+    public FeeResponseDto patchFee(Long id, FeeRequestDto feeRequestDto) {
+        Fee existingFee = feeRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Fee not found")
+        );
+        existingFee.setType(Fee.TypeOfFee.valueOf(feeRequestDto.getType()));
+        existingFee.setName(feeRequestDto.getName());
+        existingFee.setCostStandard(feeRequestDto.getCostStandard());
+        existingFee.setUpdatedAt(LocalDate.now());
+        Fee updatedFee = feeRepository.save(existingFee);
+        return null;
+    }
+
+    @Override
+    public List<FeeResponseDto> getFeesByType(String type) {
+
+        return null;
+    }
+
+    @Override
+    public List<FeeResponseDto> getFeesByHouseholdId(Long id) {
+        Household household = householdRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Household not found")
+        );
+        return null;
+    }
+
+    @Override
+    public List<FeeResponseDto> getFeesByUserId(Long id) {
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
+
+        return null;
+    }
+
+    @Override
+    public List<FeeResponseDto> getFeesByHouseholdIdAndUserId(Long householdId, Long userId) {
+        return null;
+    }
+
+    @Override
+    public List<FeeResponseDto> getFeesByHouseholdIdAndUserIdAndStatus(Long householdId, Long userId, String status) {
+        return null;
     }
 
 }
