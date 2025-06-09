@@ -21,4 +21,7 @@ public class RoomRequestDto {
 
     @NotBlank(message = "Room location is required")
     private String location;
+
+    @NotNull(message = "Household id is required")
+    private Long householdId;
 }
