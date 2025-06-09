@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class RoomServiceImpl implements RoomService {
@@ -58,5 +59,25 @@ public class RoomServiceImpl implements RoomService {
         );
         roomRepository.delete(room);
         return "Deleted room with id: " + id + " successfully";
+    }
+
+    @Override
+    public RoomResponseDto updateRoom(Long id, RoomRequestDto roomRequestDto) {
+        return null;
+    }
+
+    @Override
+    public RoomResponseDto patchRoom(Long id, Map<String, String> roomRequestDto) {
+        return null;
+    }
+
+    @Override
+    public RoomResponseDto patchAllRoom(Map<String, String> roomRequestDto) {
+        return null;
+    }
+
+    @Override
+    public String deleteAllRoom() {
+        return null;
     }
 }
