@@ -131,7 +131,7 @@ public class ContributionServiceImpl implements ContributionService {
                     price = money * numberOfPeople;
                     break;
                 case "Service", "Manage":
-                    int area = household.getAreaCode();
+                    float area = household.getAreaCode();
                     if (area == 0){
                         price = money;
                     }

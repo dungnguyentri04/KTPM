@@ -2,7 +2,9 @@ package com.example.demo.dto.RequestDto;
 
 import com.example.demo.models.Demographics.Gender;
 
+
 import jakarta.validation.constraints.*;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,15 +19,18 @@ import org.hibernate.annotations.processing.Pattern;
 @AllArgsConstructor
 public class DemographicsRequestDto {
 
+
     @NotBlank(message = "User name is required")
     private String name;
 
     @Email(message = "Invalid email format")
+
     @NotBlank(message = "Email is required")
     private String email;
 
     @NotNull(message = "User birthday is required")
     @Past(message = "Birthday must be in the past")
+
     private LocalDate birthday;
 
     @NotNull(message = "User gender is required")
@@ -46,6 +51,7 @@ public class DemographicsRequestDto {
     private String job;
 
     @NotBlank(message = "User workplace is required")
+
     private String workplace;
 
     @NotBlank(message = "citizenID is required")

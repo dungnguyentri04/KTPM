@@ -34,12 +34,14 @@ public class Household {
 
     private String location;
 
-    private int areaCode;
+    private float areaCode;
 
     private int numberOfPeople;
 
     private LocalDate createdAt;
 
     private LocalDate updateAt;
+
+    private String roomName;
 
 }
