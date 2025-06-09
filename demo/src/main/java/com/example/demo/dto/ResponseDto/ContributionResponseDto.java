@@ -12,9 +12,9 @@ import java.util.Map;
 @NoArgsConstructor
 @AllArgsConstructor
 public class ContributionResponseDto {
-    private Long id;
-
     private Long feeId;
+
+    private Long id;
 
     private Long householdId;
 
@@ -26,9 +26,10 @@ public class ContributionResponseDto {
 
     private String feeName;
 
-    private LocalDate deadline;
-
     private LocalDate createdAt;
 
+    private LocalDate deadline;
+
     private LocalDate updateAt;
+
 }

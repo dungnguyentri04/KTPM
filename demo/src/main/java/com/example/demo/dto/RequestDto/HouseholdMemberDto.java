@@ -1,3 +1,4 @@
+
 package com.example.demo.dto.RequestDto;
 
 import com.example.demo.models.Demographics.Relationship;
@@ -10,11 +11,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseholdMemberDto {
+
     @NotNull(message = "Id is required")
     private Long id;
 
     private Boolean isOwner;
 
+
     @NotNull(message = "Relationship is required")
+
     private String relationship;
+
+    private LocalDate joinedDate;
+
+    private LocalDate leftDate;
+
+    private String note;
+
+    private String job
 }

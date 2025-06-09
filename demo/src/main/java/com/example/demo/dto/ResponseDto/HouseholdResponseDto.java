@@ -1,12 +1,10 @@
 package com.example.demo.dto.ResponseDto;
 
-import com.example.demo.dto.RequestDto.DemographicsRequestDto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.List;
 
 @Data
@@ -14,8 +12,6 @@ import java.util.List;
 @AllArgsConstructor
 public class HouseholdResponseDto {
     private Long id;
-
-//    private List<DemographicsResponseDto> demographicsList;
 
     private String ownerName;
 
@@ -34,4 +30,5 @@ public class HouseholdResponseDto {
     private String citizenIdOwner;
 
     private String roomName;
+
 }
