@@ -63,21 +63,44 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public RoomResponseDto updateRoom(Long id, RoomRequestDto roomRequestDto) {
-        return null;
+        Room room = roomRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Room not found")
+        );
+        room.setName(roomRequestDto.getName());
+        room.setDescription(roomRequestDto.getDescription());
+        room.setArea(roomRequestDto.getArea());
+        room.setLocation(roomRequestDto.getLocation());
+        room.setHouseholdId(roomRequestDto.getHouseholdId());
+        Room saveRoom = roomRepository.save(room);
+        return modelMapper.map(saveRoom, RoomResponseDto.class);
     }
 
     @Override
     public RoomResponseDto patchRoom(Long id, Map<String, String> roomRequestDto) {
+        Room room = roomRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Room not found")
+        );
+        room.setRoomStatus(Room.RoomStatus.valueOf(roomRequestDto.get("roomStatus")));
+        Room saveRoom = roomRepository.save(room);
         return null;
     }
 
     @Override
     public RoomResponseDto patchAllRoom(Map<String, String> roomRequestDto) {
+        Room room = roomRepository.findById(Long.parseLong(roomRequestDto.get("id"))).orElseThrow(
+                () -> new NotFoundException("Room not found")
+        );
+        room.setRoomStatus(Room.RoomStatus.valueOf(roomRequestDto.get("roomStatus")));
+        Room saveRoom = roomRepository.save(room);
         return null;
     }
 
     @Override
     public String deleteAllRoom() {
+        Room room = roomRepository.findById(Long.parseLong("1")).orElseThrow(
+                () -> new NotFoundException("Room not found")
+        );
+        roomRepository.delete(room);
         return null;
     }
 }
