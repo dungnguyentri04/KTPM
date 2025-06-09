@@ -65,7 +65,7 @@ public class SecurityConfig {
                 .formLogin(login->
                         login.loginPage("/login")
                                 .loginProcessingUrl("/process-login")
-                                .defaultSuccessUrl("/test", true)
+                                .defaultSuccessUrl("/dashboard", true)
                                 .permitAll()// form xác nhận
                 )
                 .logout(logout -> logout

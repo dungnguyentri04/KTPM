@@ -8,6 +8,7 @@ import com.example.demo.dto.ResponseDto.DemographicsResponseDto;
 import com.example.demo.dto.ResponseDto.HouseholdResponseDto;
 import com.example.demo.service.DemographicService;
 import com.example.demo.service.HouseholdService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -29,7 +30,7 @@ public class HouseHoldController {
     private DemographicService demographicService;
 
     //them metadata số lượng household
-    @GetMapping("/households")
+        @GetMapping("/households")
     public ResponseEntity<ApiResponse<List<HouseholdResponseDto>>> getAllHouseholds(){
         // Get all households
         List<HouseholdResponseDto> householdResponseDtos = householdService.getAllHouseholds();
@@ -58,7 +59,7 @@ public class HouseHoldController {
     }
 
     @PostMapping("/households")
-    public ResponseEntity<ApiResponse<HouseholdResponseDto>> addHousehold(@RequestBody HouseholdRequestDto householdRequestDto){
+    public ResponseEntity<ApiResponse<HouseholdResponseDto>> addHousehold(@Valid @RequestBody HouseholdRequestDto householdRequestDto){
         // Add a new household
         HouseholdResponseDto addedHousehold = householdService.addHousehold(householdRequestDto);
         // Create a response object
