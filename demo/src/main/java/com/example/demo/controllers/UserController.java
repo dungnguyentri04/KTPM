@@ -4,6 +4,7 @@ import com.example.demo.dto.ApiResponse;
 import com.example.demo.dto.RequestDto.UserRequestDto;
 import com.example.demo.dto.ResponseDto.UserResponseDto;
 import com.example.demo.service.UserService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,7 +28,7 @@ public class UserController {
     }
 
     @PostMapping("/users")
-    public ResponseEntity<ApiResponse<UserResponseDto>> addUser(@RequestBody UserRequestDto userRequestDto){
+    public ResponseEntity<ApiResponse<UserResponseDto>> addUser(@Valid @RequestBody UserRequestDto userRequestDto){
         UserResponseDto userDto = userService.addUser(userRequestDto);
         ApiResponse<UserResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
@@ -76,8 +77,24 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+    @GetMapping("/users/{userId}/profile")
+    public String profile(){
+        return null;
+    }
+
     @PostMapping("/users/{userId}/forget-password")
     public String forgetPassword(){
+        return null;
+    }
+
+    @PostMapping("/users/{userId}/reset-password")
+    public String resetPassword(){
+
+        return null;
+    }
+
+    @PostMapping("/users/{userId}/change-password")
+    public String changePassword(){
         return null;
     }
 }

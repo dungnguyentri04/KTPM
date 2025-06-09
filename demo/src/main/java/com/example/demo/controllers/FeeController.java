@@ -4,6 +4,7 @@ import com.example.demo.dto.ApiResponse;
 import com.example.demo.dto.RequestDto.FeeRequestDto;
 import com.example.demo.dto.ResponseDto.FeeResponseDto;
 import com.example.demo.service.FeeService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class FeeController {
     }
 
     @PostMapping("/fees")
-    public ResponseEntity<ApiResponse<FeeResponseDto>> addFee(@RequestBody FeeRequestDto feeRequestDto){
+    public ResponseEntity<ApiResponse<FeeResponseDto>> addFee(@Valid @RequestBody FeeRequestDto feeRequestDto){
         FeeResponseDto addedFee = feeService.addFee(feeRequestDto);
         ApiResponse<FeeResponseDto> response = new ApiResponse<>();
         response.setStatus("success");

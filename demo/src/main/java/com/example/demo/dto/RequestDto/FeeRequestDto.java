@@ -1,3 +1,16 @@
+
+package com.example.demo.dto.RequestDto;
+
+import com.example.demo.models.Fee.TypeOfFee;
+import java.util.Date;
+
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -10,7 +23,7 @@ public class FeeRequestDto {
     private String name;
 
     @NotNull(message = "Fee cost standard is required")
-    @Positive(message = "Fee cost must be greater than 0")
+
     private Long costStandard;
 
     private String description;

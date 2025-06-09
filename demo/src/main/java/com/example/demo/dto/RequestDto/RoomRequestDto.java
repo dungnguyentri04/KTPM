@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class RoomRequestDto {
 
+
     @NotBlank(message = "Room name is required")
     private String name;
 
@@ -23,6 +24,7 @@ public class RoomRequestDto {
     @NotBlank(message = "Room location is required")
     private String location;
 
+<<<<<<< HEAD
 
     @NotBlank(message = "Building code is required") // ví dụ: A, B, C
     private String buildingCode;

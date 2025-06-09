@@ -1,5 +1,9 @@
 package com.example.demo.dto.ResponseDto;
 
+<<<<<<< HEAD
+=======
+import com.example.demo.models.Room;
+>>>>>>> main
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -27,6 +31,7 @@ public class RoomResponseDto {
     private Long householdId;
 
     private String status;
+
 
     private String buildingCode;
 

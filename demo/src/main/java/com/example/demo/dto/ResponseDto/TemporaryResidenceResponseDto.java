@@ -11,6 +11,39 @@ import java.time.LocalDate;
 @NoArgsConstructor
 @AllArgsConstructor
 public class TemporaryResidenceResponseDto {
+    private TemporaryResidence.ResidenceType type;
+
+    private String placeOfRegistation;
+
+    private String location;
+
+    private LocalDate startedDate;
+
+    private LocalDate endedDate;
+
+    private LocalDate dateOfRegistation;
+
+    private String reason;
+
+    private LocalDate createdAt;
+
+    private LocalDate updatedAt;
+
+    private String roomName;
+
+    private long id;
+
+    private long demographicId;
+
+    private String demographicName;
+
+
+import java.time.LocalDate;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+public class TemporaryResidenceResponseDto {
     private long id;
 
     private long demographicId;

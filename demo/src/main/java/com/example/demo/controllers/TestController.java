@@ -61,13 +61,35 @@ public class TestController {
         return "addContribution";
     }
 
-    @GetMapping("/test")
+    @GetMapping("/dashboard")
     public String test() {
-        return "dashboard";
+        return "index";
     }
 
     @GetMapping("/login")
     public String login() {
         return "login";
     }
+
+    @GetMapping("/viewAllRooms")
+    public String allRooms() {
+        return "viewAllRoom";
+    }
+
+    @GetMapping("/addRoom")
+    public String addRoom() {
+        return "addRoom";
+    }
+
+    @GetMapping("/addTemporary")
+    public String addTemporary(@RequestParam(value = "type", defaultValue = "default") String type,
+                               @RequestParam(value = "demographicId", defaultValue = "0") Long demographicId) {
+        return "addTemporary";
+    }
+
+    @GetMapping("/viewAllTemporary")
+    public String viewAllTemporary() {
+        return "viewAllTemporary";
+    }
+
 }

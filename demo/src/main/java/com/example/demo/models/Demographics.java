@@ -26,7 +26,7 @@ public class Demographics {
         OWNER,
         PARENT,
         GRANDPARENT,
-        OTHER
+        OTHER,
     }
 
     @Id

@@ -1,5 +1,9 @@
 package com.example.demo.dto.RequestDto;
 
+
+import java.util.Date;
+import java.util.List;
+
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -20,48 +24,20 @@ public class HouseholdRequestDto {
     @NotNull(message = "Number of household is required")
     private String numberOfHousehold;
 
+//    private String location;
+
+//    private int areaCode;
+
+
+    private String householdType;
+
+
     @NotBlank(message = "Citizen id owner is required")
     private String citizenIdOwner;
 
     @NotBlank(message = "Room name is required")
     private String roomName;
 
-    private String householdType;
-
-    private LocalDate registrationDate;
-
-    private String status;
-
-    private String note;
-
-    private String createdBy;
-
-    private String electricMeterCode;
-
-    private String waterMeterCode;
-
-    private List<HouseholdMemberDto> householdMemberDtos;
-
-    // Mở rộng
-    private String ownershipType;
-
-    private LocalDate startDateLiving;
-
-    private LocalDate endDateLiving;
-
-    private Boolean isEligibleForDiscount;
-
-    private Integer discountPercent;
-
-    private String buildingCode;
-
-    private Integer floorNumber;
-
-    private Boolean hasPet;
-
-    private Integer parkingSlotCount;
-
-    private Boolean fireSafetyCertified;
-
-    private String lastUpdatedBy;
+//    private Long ownerId;
 }
+
