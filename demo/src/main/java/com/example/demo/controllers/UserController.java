@@ -77,8 +77,24 @@ public class UserController {
         return ResponseEntity.status(HttpStatus.OK).body(apiResponse);
     }
 
+    @GetMapping("/users/{userId}/profile")
+    public String profile(){
+        return null;
+    }
+
     @PostMapping("/users/{userId}/forget-password")
     public String forgetPassword(){
+        return null;
+    }
+
+    @PostMapping("/users/{userId}/reset-password")
+    public String resetPassword(){
+
+        return null;
+    }
+
+    @PostMapping("/users/{userId}/change-password")
+    public String changePassword(){
         return null;
     }
 }
