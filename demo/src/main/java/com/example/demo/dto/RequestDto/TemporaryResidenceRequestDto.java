@@ -1,11 +1,6 @@
 package com.example.demo.dto.RequestDto;
 
-import com.example.demo.models.TemporaryResidence.ResidenceType;
-
 import java.time.LocalDate;
-import java.util.Date;
-
->>>>>>> main
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -37,7 +32,6 @@ public class TemporaryResidenceRequestDto {
     private String reason;
 
     private String roomName;
-<<<<<<< HEAD
 
     private String registeredBy;
 
@@ -59,6 +53,3 @@ public class TemporaryResidenceRequestDto {
 
     private String note;
 }
-=======
-}
->>>>>>> main
