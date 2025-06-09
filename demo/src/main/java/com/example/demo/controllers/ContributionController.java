@@ -4,6 +4,7 @@ import com.example.demo.dto.ApiResponse;
 import com.example.demo.dto.RequestDto.ContributionRequestDto;
 import com.example.demo.dto.ResponseDto.ContributionResponseDto;
 import com.example.demo.service.ContributionService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,7 +21,7 @@ public class ContributionController {
     private ContributionService contributionService;
 
     @PostMapping("/contributes")
-    public ResponseEntity<ApiResponse<ContributionResponseDto>> addContribute(@RequestBody ContributionRequestDto contributionRequestDto){
+    public ResponseEntity<ApiResponse<ContributionResponseDto>> addContribute(@Valid @RequestBody ContributionRequestDto contributionRequestDto){
         ContributionResponseDto contributionResponseDto = contributionService.addContribute(contributionRequestDto);
         ApiResponse<ContributionResponseDto> response = new ApiResponse<>();
         response.setStatus("success");

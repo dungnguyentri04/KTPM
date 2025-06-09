@@ -4,6 +4,7 @@ import com.example.demo.dto.ApiResponse;
 import com.example.demo.dto.RequestDto.DemographicsRequestDto;
 import com.example.demo.dto.ResponseDto.DemographicsResponseDto;
 import com.example.demo.service.DemographicService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -44,7 +45,7 @@ public class DemographicController {
     }
 
     @PostMapping("/demographics")
-    public ResponseEntity<ApiResponse<DemographicsResponseDto>> addDemographic(@RequestBody DemographicsRequestDto demographicsRequestDto){
+    public ResponseEntity<ApiResponse<DemographicsResponseDto>> addDemographic(@Valid @RequestBody DemographicsRequestDto demographicsRequestDto){
         DemographicsResponseDto demographicResponseDto = demographicService.addDemographic(demographicsRequestDto);
         ApiResponse<DemographicsResponseDto> response = new ApiResponse<>();
         response.setStatus("success");
