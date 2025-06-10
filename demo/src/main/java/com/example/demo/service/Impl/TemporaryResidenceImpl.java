@@ -150,4 +150,14 @@ public class TemporaryResidenceImpl implements TemporaryResidenceService {
         temporaryResidenceRepository.save(temporaryResidence);
         return null;
     }
+
+    @Override
+    public List<TemporaryResidenceResponseDto> findByDemographicId(Long id) {
+        return null;
+    }
+
+    @Override
+    public List<TemporaryResidenceResponseDto> getTemporaryByRoomName(String roomName) {
+        return null;
+    }
 }
