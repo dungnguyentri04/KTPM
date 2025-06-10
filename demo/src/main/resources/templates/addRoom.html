@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{base::layout(~{::content})}">
+
+<div class="container" th:fragment="content">
+	<div class="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Add Room</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+
+								<div class="form-group">
+									<label for="name">Name</label>
+									<input type="text" class="form-control" id="name"
+										   placeholder="Name" />
+								</div>
+
+								<div class="form-group">
+									<label for="location">Location</label>
+									<input type="text" class="form-control" id="location"
+										   placeholder="Location" />
+								</div>
+
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+								<div class="form-group">
+									<label for="area">Area</label>
+									<input type="number" class="form-control" id="area"
+										   placeholder="Area" step="0.01" />
+								</div>
+
+								<div class="form-group">
+									<label for="description">Description</label>
+									<textarea type="text" class="form-control" id="description"
+										   placeholder="Description"></textarea>
+								</div>
+
+							</div>
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="btn btn-success" id="submitBtn">Submit</button>
+						<button class="btn btn-danger" id="cancelBtn" onclick="history.back()">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		const submitBtn = document.getElementById('submitBtn');
+		const cancelBtn = document.getElementById('cancelBtn');
+		const nameInput = document.getElementById('name');
+		const locationInput = document.getElementById('location');
+		const areaInput = document.getElementById('area');
+		const descriptionInput = document.getElementById('description');
+
+		submitBtn.addEventListener('click', function() {
+			const name = nameInput.value;
+			const location = locationInput.value;
+			const area = areaInput.value;
+			const description = descriptionInput.value;
+
+			fetch('/api/rooms', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					name: name,
+					location: location,
+					area: area,
+					description: description
+				})
+			})
+			.then(async (response) => {
+				const data = await response.json();
+				if (!response.ok) {
+					throw new Error('Error: ' + data.message);
+				}
+				return data;
+			})
+			.then(data => {
+				alert("add success");
+				window.location.href = '/viewAllRooms';
+			})
+			.catch(error => {
+				console.error('Error:', error);
+				alert(error.message);
+			});
+
+		})
+
+	</script>
+
+
+</div>

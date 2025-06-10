@@ -42,4 +42,20 @@ public class User {
 
     private LocalDate updated_at;
 
+    private String avatar;
+
+    private String address;
+
+    private String email;
+
+    private String fullName;
+
+    private String citizenId;
+
+    private Boolean status;
+
+    private String created_by;
+
+    private String updated_by;
+
 }
