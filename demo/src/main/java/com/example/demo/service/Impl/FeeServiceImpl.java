@@ -109,7 +109,12 @@ public class FeeServiceImpl implements FeeService {
 
     @Override
     public List<FeeResponseDto> getFeesByType(String type) {
-
+        List<Fee> fees = feeRepository.findByType(Fee.TypeOfFee.valueOf(type));
+        if (!fees.isEmpty()) {
+            return fees.stream()
+                    .map(fee -> modelMapper.map(fee, FeeResponseDto.class))
+                    .collect(Collectors.toList());
+        }
         return null;
     }
 
@@ -118,6 +123,12 @@ public class FeeServiceImpl implements FeeService {
         Household household = householdRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("Household not found")
         );
+        List<Fee> fees = feeRepository.findByHousehold(household);
+        if (!fees.isEmpty()) {
+            return fees.stream()
+                    .map(fee -> modelMapper.map(fee, FeeResponseDto.class))
+                    .collect(Collectors.toList());
+        }
         return null;
     }
 
@@ -126,17 +137,46 @@ public class FeeServiceImpl implements FeeService {
         User user = userRepository.findById(id).orElseThrow(
                 () -> new NotFoundException("User not found")
         );
-
+        List<Fee> fees = feeRepository.findByUser(user);
+        if (!fees.isEmpty()) {
+            return fees.stream()
+                    .map(fee -> modelMapper.map(fee, FeeResponseDto.class))
+                    .collect(Collectors.toList());
+        }
         return null;
     }
 
     @Override
     public List<FeeResponseDto> getFeesByHouseholdIdAndUserId(Long householdId, Long userId) {
+        Household household = householdRepository.findById(householdId).orElseThrow(
+                () -> new NotFoundException("Household not found")
+        );
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
+        List<Fee> fees = feeRepository.findByHouseholdAndUser(household, user);
+        if (!fees.isEmpty()) {
+            return fees.stream()
+                    .map(fee -> modelMapper.map(fee, FeeResponseDto.class))
+                    .collect(Collectors.toList());
+        }
         return null;
     }
 
     @Override
     public List<FeeResponseDto> getFeesByHouseholdIdAndUserIdAndStatus(Long householdId, Long userId, String status) {
+        Household household = householdRepository.findById(householdId).orElseThrow(
+                () -> new NotFoundException("Household not found")
+        );
+        User user = userRepository.findById(userId).orElseThrow(
+                () -> new NotFoundException("User not found")
+        );
+        List<Fee> fees = feeRepository.findByHouseholdAndUserAndStatus(household, user, status);
+        if (!fees.isEmpty()) {
+            return fees.stream()
+                    .map(fee -> modelMapper.map(fee, FeeResponseDto.class))
+                    .collect(Collectors.toList());
+        }
         return null;
     }
 

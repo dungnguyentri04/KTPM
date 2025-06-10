@@ -50,6 +50,9 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public StatisticDto getStatisticUser() {
+        long totalUsers = userRepository.countTotalUsers();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalUsers(totalUsers);
         return null;
     }
 
