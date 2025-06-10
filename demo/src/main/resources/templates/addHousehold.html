@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{base::layout(~{::content})}">
+
+<div class="container" th:fragment="content">
+			<div class="page-inner">
+
+				<div class="row">
+					<div class="col-md-12">
+						<div class="card">
+							<div class="card-header">
+								<div class="card-title">Add Household</div>
+							</div>
+							<div class="card-body">
+								<div class="row">
+									<div class="col-md-6 col-lg-6">
+
+										<div class="form-group">
+											<label for="citizenIdOwner">Citizen Id Owner</label>
+											<select class="form-select form-control" id="citizenIdOwner">
+														<!--Cac option-->
+											</select>
+										</div>
+
+										<div class="form-group">
+											<label for="numberOfHousehold">Number of household</label>
+											<input type="text" class="form-control" id="numberOfHousehold"
+												   placeholder="Number of household" />
+										</div>
+
+									</div>
+
+									<div class="col-md-6 col-lg-6">
+										<div class="form-group">
+											<label for="ownerName">Owner Name</label>
+											<input type="text" class="form-control" id="ownerName"
+												   placeholder="Owner Name" readonly/>
+										</div>
+
+										<div class="form-group">
+											<label for="roomName">Room Name</label>
+											<input type="text" class="form-control" id="roomName"
+												   placeholder="Room Name" />
+										</div>
+
+
+									</div>
+
+
+								</div>
+							</div>
+
+
+
+
+							<div class="card-action">
+								<button class="btn btn-success" id="submitBtn">Submit</button>
+								<button class="btn btn-danger" id="cancelBtn" onclick="history.back()">Cancel</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+<script>
+	let demographicsMap = new Map();
+	// Hàm để lấy danh sách nhân khẩu từ API
+		fetch('api/demographics')  // Thay thế URL thực tế của API
+			.then(response => response.json())
+			.then(response => {
+				const citizenIdSelect = document.getElementById('citizenIdOwner');
+				const listDemographics = response.data;
+				console.log(listDemographics)
+				// Thêm option mặc định
+				const defaultOption = document.createElement('option');
+				defaultOption.textContent = 'Select Citizen ID';
+				citizenIdSelect.appendChild(defaultOption);
+
+				// Thêm các option cho mỗi nhân khẩu
+				listDemographics.forEach(demographic => {
+					const option = document.createElement('option');
+					option.value = demographic.citizenId;  // Dùng CCCD làm giá trị
+					option.textContent = demographic.citizenId;  // Hiển thị CCCD trong list
+					demographicsMap.set(demographic.citizenId, demographic.name);
+					citizenIdSelect.appendChild(option);
+				});
+			})
+			.catch(error => console.error('Error fetching demographics:', error));
+
+		console.log(demographicsMap)
+	// Lắng nghe sự kiện khi người dùng chọn CCCD từ danh sách
+	document.getElementById('citizenIdOwner').addEventListener('change', function() {
+		const selectedCitizenId = this.value;
+
+		if (selectedCitizenId) {
+			// Tìm Tên chủ hộ trong Map theo CCCD
+			const ownerName = demographicsMap.get(selectedCitizenId);
+
+			if (ownerName) {
+				document.getElementById('ownerName').value = ownerName;  // Cập nhật tên chủ hộ
+			} else {
+				document.getElementById('ownerName').value = 'No owner found';
+			}
+		}
+	});
+
+	// Xử lý khi nhấn nút Submit
+	document.getElementById('submitBtn').addEventListener('click', function(event) {
+		event.preventDefault();  // Ngừng hành động mặc định của nút (nếu có)
+
+		// Thu thập dữ liệu từ form
+		const ownerName = document.getElementById('ownerName').value;
+		const citizenIdOwner = document.getElementById('citizenIdOwner').value;
+		const numberOfHousehold = document.getElementById('numberOfHousehold').value;
+		const roomName = document.getElementById('roomName').value;
+
+		const formData = {
+			ownerName: ownerName,
+			numberOfHousehold: numberOfHousehold,
+			roomName: roomName,
+			citizenIdOwner: citizenIdOwner
+		};
+
+		// Gửi dữ liệu qua fetch
+		fetch('api/households', {
+			method: 'POST',
+			headers: {
+				'Content-Type': 'application/json'
+			},
+			body: JSON.stringify(formData)  // Gửi dữ liệu JSON
+		})
+			.then(async (response) => {
+				const data = await response.json();
+				if (!response.ok) {
+					throw new Error('Error: ' + data.message);
+				}
+				return data;
+			})
+			.then(data => {
+				console.log('Submission success:', data);
+				alert("Add household success");
+				// Chuyển hướng đến trang sau khi submit (ví dụ)
+				window.location.href = '/viewAllHouseholds';  // Điều hướng tới trang xem tất cả hộ khẩu
+			})
+			.catch(error => {
+				console.error('Error submitting data:', error);
+				alert(error.message);
+			});
+	});
+
+</script>
+
+
+</div>
+
+
