@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{base::layout(~{::content})}">
+
+<div class="container" th:fragment="content">
+	<div class="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="card-title">Add Contribution</div>
+					</div>
+					<div class="card-body">
+						<div class="row">
+							<div class="col-md-6 col-lg-6">
+
+								<div class="form-group">
+									<label for="type">Type Fee</label>
+									<select class="form-select form-control" id="type">
+										<option>NON_MANDATORY</option>
+										<option>MANDATORY</option>
+									</select>
+								</div>
+
+								<div class="form-group">
+									<label for="name">Type Name</label>
+									<select class="form-select form-control" id="name">
+
+									</select>
+								</div>
+
+								<div class="form-group" id="extraInput">
+
+								</div>
+
+
+
+
+							</div>
+
+							<div class="col-md-6 col-lg-6">
+
+								<div class="form-group">
+									<label for="money">Cost</label>
+									<input type="number" class="form-control" id="money"
+										   placeholder="Cost" step="0.01"/>
+								</div>
+
+								<div class="form-group">
+									<label for="deadline" >Deadline</label>
+									<input
+											type="date"
+											class="form-control"
+											id="deadline"
+											name="deadline"
+											placeholder="deadline"
+									>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="card-action">
+						<button class="btn btn-success" id="submitBtn">Submit</button>
+						<button class="btn btn-danger" id="cancelBtn" onclick="history.back()">Cancel</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		let allFeesData = [];
+		let mandatoryList = [];
+		let nonMandatoryList = [];
+		const typeFeeSelect = document.getElementById("type");
+
+		fetch('api/fees')
+			.then(res => {
+				if (!res.ok) {
+					throw new Error('error');
+				}
+				return res.json();})
+			.then(response => {
+				allFeesData = response.data;
+				mandatoryList = allFeesData.filter(fee => fee.type === "MANDATORY");
+				nonMandatoryList = allFeesData.filter(fee => fee.type === "NON_MANDATORY");
+			})
+			.catch(
+				error => console.error('Error fetching data:', error)
+			)
+
+
+		const feeNameSelect = document.getElementById("name");
+		const costInput = document.getElementById("money");
+		const extraInputDiv = document.getElementById("extraInput");
+		const esubmitBtn = document.getElementById("submitBtn");
+
+		// Hàm cập nhật options cho select Type Name
+		function updateTypeNameOptions() {
+			const selectedTypeFee = typeFeeSelect.value;
+			let list = selectedTypeFee === "MANDATORY" ? mandatoryList : nonMandatoryList;
+
+			// Xóa option cũ
+			feeNameSelect.innerHTML = '<option value="">Select Name</option>';
+
+			list.forEach(fee => {
+				const option = document.createElement("option");
+				option.value = fee.name;
+				option.textContent = fee.name;
+				feeNameSelect.appendChild(option);
+			});
+
+			feeNameSelect.disabled = list.length === 0;
+		}
+
+		// Xử lý khi thay đổi Type Fee
+		typeFeeSelect.addEventListener("change", () => {
+			updateTypeNameOptions();
+		});
+
+		// Xử lý khi thay đổi Type Name
+		feeNameSelect.addEventListener("change", () => {
+			const selectedTypeFee = typeFeeSelect.value;
+			const selectedName = feeNameSelect.value;
+
+			extraInputDiv.innerHTML = ""; // reset input thêm
+
+			if (!selectedName) {
+				costInput.readOnly = selectedTypeFee === "MANDATORY";
+				return;
+			}
+
+			if (selectedName === "Service" || selectedName === "Manage") {
+				costInput.placeholder = "Input Cost/m2";
+			}
+			else if (selectedName === "Vehicle") {
+				const label = document.createElement("label");
+				label.textContent = "Number of vehicle";
+				label.setAttribute("for", "numberOfVehicles");
+				const input = document.createElement("input");
+				input.type = "number";
+				input.id = "numberOfVehicles";
+				input.className = "form-control";
+				input.placeholder = "Enter number";
+				extraInputDiv.appendChild(label);
+				extraInputDiv.appendChild(input);
+			}
+			else if (selectedName === "Cleaning") {
+				costInput.placeholder = "Input Cost/member";
+			}
+			else {
+				costInput.placeholder = "Input Cost";
+			}
+		});
+
+
+
+
+		submitBtn.addEventListener('click', function(event) {
+			event.preventDefault(); // ngăn submit mặc định
+
+			const name = feeNameSelect.value;
+			const deadline = document.getElementById('deadline').value;
+			const cost = document.getElementById('money').value;
+
+			// Lấy giá trị từ ô input thêm (giả sử chỉ có 1 input trong extraInputDiv)
+			const vehicleInput = document.getElementById('numberOfVehicles');
+			let vehicle = null;
+			if (vehicleInput) {
+				vehicle = vehicleInput.value;
+			}
+			const params = new URLSearchParams(window.location.search);
+			const householdId = Number(params.get("householdId"));
+
+			const feeData = allFeesData.find(fee => fee.name === name);
+			const feeId = feeData ? feeData.id : null;
+
+			// Tạo payload gửi đi
+			const formData = {
+				feeId: feeId,
+				householdId: householdId,
+				money: Number(cost),
+				deadline: deadline, // ví dụ deadline hiện tại
+				vehicle: vehicle
+			};
+
+			console.log('Payload gửi:', formData);
+
+			fetch('api/contributes', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify(formData)
+			})
+				.then(async (res) => {
+					const data =  await res.json();
+					if (!res.ok) {
+						throw new Error('Error: ' + data.message);
+					}
+					return data;
+				})
+				.then(data => {
+					alert('Add contribution success');
+					window.location.href = '/viewHousehold?id=' + householdId;
+				})
+				.catch(err => {
+					alert(err.message);
+					console.error(err);
+				});
+		});
+
+
+
+		// Khởi tạo options lần đầu
+		updateTypeNameOptions();
+		costInput.readOnly = typeFeeSelect.value === "MANDATORY";
+
+	</script>
+
+</div>
