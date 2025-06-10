@@ -26,4 +26,8 @@ public interface TemporaryResidenceService {
     public List<TemporaryResidenceResponseDto> getTemporaryInactive();
 
     public TemporaryResidenceResponseDto updateTemporary(Long id, TemporaryResidenceRequestDto temporaryResidenceRequestDto);
+
+    public List<TemporaryResidenceResponseDto> findByDemographicId(Long id);
+
+    public List<TemporaryResidenceResponseDto> getTemporaryByRoomName(String roomName);
 }
