@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	  th:replace="~{base::layout(~{::content})}">
+
+<div class="container" th:fragment="content">
+	<div class="page-inner">
+		<div class="row">
+			<div class="col-md-12">
+				<div class="card">
+					<div class="card-header">
+						<div class="d-flex align-items-center">
+							<h4 class="card-title">View Users</h4>
+							<a class="btn btn-primary btn-round ms-auto"
+							   th:href="@{/addUser}">
+								<i class="fa fa-plus"></i>
+								Add Row
+							</a>
+						</div>
+					</div>
+					<div class="card-body">
+						<!-- Modal -->
+						<div class="modal fade" id="addRowModal" tabindex="-1" role="dialog"
+							 aria-hidden="true">
+							<div class="modal-dialog" role="document">
+								<div class="modal-content">
+									<div class="modal-header border-0">
+										<h5 class="modal-title">
+											<span class="fw-mediumbold"> New</span>
+											<span class="fw-light"> Row </span>
+										</h5>
+										<button type="button" class="close" data-dismiss="modal"
+												aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
+									</div>
+									<div class="modal-body">
+										<p class="small">
+											Create a new row using this form, make sure you
+											fill them all
+										</p>
+										<form>
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="form-group form-group-default">
+														<label>Name</label>
+														<input id="addName" type="text" class="form-control"
+															   placeholder="fill name" />
+													</div>
+												</div>
+												<div class="col-md-6 pe-0">
+													<div class="form-group form-group-default">
+														<label>PhoneNumber</label>
+														<input id="addPhoneNumber" type="text"
+															   class="form-control" placeholder="fill phone" />
+													</div>
+												</div>
+												<div class="col-md-6">
+													<div class="form-group form-group-default">
+														<label>Role</label>
+														<input id="addRole" type="text" class="form-control"
+															   placeholder="fill role" />
+													</div>
+												</div>
+											</div>
+										</form>
+									</div>
+									<div class="modal-footer border-0">
+										<button type="button" id="addRowButton" class="btn btn-primary">
+											Add
+										</button>
+										<button type="button" class="btn btn-danger" data-dismiss="modal">
+											Close
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<div class="table-responsive">
+							<table id="add-row" class="display table table-striped table-hover">
+								<thead>
+								<tr>
+									<th>Name</th>
+									<th>Phone Number</th>
+									<th>Role</th>
+									<th style="width: 10%">Action</th>
+								</tr>
+								</thead>
+								<tbody id="userTableBody">
+
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="deleteUserModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered">
+			<div class="modal-content">
+				<div class="modal-header border-0 pb-0">
+					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+				</div>
+				<div class="modal-body text-center pt-0">
+					<div class="mb-3">
+						<i class="fas fa-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
+					</div>
+					<h5 class="modal-title mb-3" id="deleteModalLabel">Xác nhận xóa</h5>
+					<p class="mb-0">Bạn có chắc chắn muốn xóa người dùng <strong id="userNameToDelete">testUser1</strong> không?</p>
+					<p class="text-muted small">Hành động này không thể hoàn tác.</p>
+				</div>
+				<div class="modal-footer border-0 justify-content-center">
+					<button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
+					<button type="button" class="btn btn-danger px-4" id="confirmDeleteBtn">Xóa</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		console.log("test")
+		fetch('/api/auth/users/allUsers')
+			.then(res => {
+				if (!res.ok) {
+					throw new Error('error');
+				}
+				return res.json();
+			})
+			.then(response => {
+				const allUser = response.data;
+				console.log(allUser)
+				const tbody = document.getElementById("userTableBody");
+
+				allUser.forEach(user => {
+					const tr = document.createElement("tr");
+					tr.innerHTML = `
+					<td>${user.userName}</td>
+					<td>${user.phoneNumber}</td>
+					<td>${user.role}</td>
+					<td>
+					  <div class="form-button-action">
+						<a type="button" class="btn btn-link btn-primary btn-lg"
+							 title="Chỉnh sửa" data-original-title="Edit Task">
+						  <i class="fa fa-edit"></i>
+						</a>
+						<button type="button" class="btn btn-link btn-danger"
+								data-bs-toggle="modal" title="Xóa" data-original-title="Remove"
+								data-user-id="${user.id}"
+								data-bs-target="#deleteUserModal" data-user-name="${user.userName}">
+						  <i class="fa fa-times"></i>
+						</button>
+					  </div>
+					</td>
+				  `;
+
+					tbody.appendChild(tr);
+				});
+			})
+			.catch(err => {
+				alert("Lỗi: " + err.message);
+			});
+	</script>
+
+	<script>
+		// JavaScript để xử lý modal xác nhận xóa
+		document.addEventListener('DOMContentLoaded', function() {
+			const deleteModal = document.getElementById('deleteUserModal');
+			const userNameElement = document.getElementById('userNameToDelete');
+			const confirmDeleteBtn = document.getElementById('confirmDeleteBtn');
+			let currentUserId = null;
+
+			// Khi modal được mở
+			deleteModal.addEventListener('show.bs.modal', function(event) {
+				const button = event.relatedTarget; // Nút đã kích hoạt modal
+				const userName = button.getAttribute('data-user-name');
+				const userId = button.getAttribute('data-user-id');
+
+				// Cập nhật tên người dùng trong modal
+				userNameElement.textContent = userName;
+				currentUserId = userId;
+			});
+
+			// Xử lý khi nhấn nút "Xóa"
+			confirmDeleteBtn.addEventListener('click', function() {
+				if (currentUserId) {
+					// Thực hiện xóa - có thể gọi API hoặc xử lý logic xóa ở đây
+					console.log('Đang xóa người dùng có ID:', currentUserId);
+
+					fetch("/api/auth/users/" + currentUserId, {
+						method: 'DELETE'
+					})
+						.then(async (response) => {
+							const data = await response.json();
+							if (response.ok) {
+								return data;
+							} else {
+								throw new Error('Error: ' + data.message);
+						}
+						})
+						.then(data => {
+							// Xử lý phản hồi
+							alert("delete success");
+							location.reload(); // Tải lại trang hoặc cập nhật bảng
+						})
+						.catch(error => {
+							alert("delete fail " + error.message);
+							console.error('Error:', error);
+							// Xử lý lỗi (ví dụ: hiển thị thông báo lỗi)
+						});
+				}
+			});
+
+
+		});
+	</script>
+</div>
+
