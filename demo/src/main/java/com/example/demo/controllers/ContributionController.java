@@ -80,6 +80,18 @@ public class ContributionController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/contributes")
+    public ResponseEntity<ApiResponse<List<ContributionResponseDto>>> getAllContribute(){
+        List<ContributionResponseDto> contributionResponseDtos = contributionService.getAllContribute();
+        ApiResponse<List<ContributionResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Contribute found");
+        response.setData(contributionResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+
+
 ///api/khoan-phi/{id}/ho-khau	GET	Lấy danh sách các hộ phải nộp phí theo khoản phí
 ///api/chi-tiet-khoan-thu/{id}/nop-tien	PATCH	Đánh dấu 1 khoản thu đã nộp tiền
 
