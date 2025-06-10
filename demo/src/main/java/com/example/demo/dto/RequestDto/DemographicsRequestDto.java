@@ -28,12 +28,8 @@ public class DemographicsRequestDto {
     @NotBlank(message = "Email is required")
     private String email;
 
-    @NotNull(message = "User birthday is required")
-    @Past(message = "Birthday must be in the past")
-
     private LocalDate birthday;
 
-    @NotNull(message = "User gender is required")
     private Gender sex;
 
     private String placeOfBirth;
@@ -74,7 +70,6 @@ public class DemographicsRequestDto {
     private LocalDate leavingDate;
 
     @NotBlank(message = "PhoneNumber is required")
-    @Pattern(regexp = "^\\d{9,11}$", message = "PhoneNumber must be 9 to 11 digits")
     private String phoneNumber;
 
     @Min(value = 0, message = "NumofCar cannot be negative")
@@ -108,5 +103,6 @@ public class DemographicsRequestDto {
     private String healthStatus;
 
     private String note;
+
 
 }
