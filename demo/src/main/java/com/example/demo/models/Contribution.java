@@ -50,4 +50,8 @@ public class Contribution {
 
     private LocalDate updateAt;
 
+    private String roomName;
+
+    private Long feeId;
+
 }
