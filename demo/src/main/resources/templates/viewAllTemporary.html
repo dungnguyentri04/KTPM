@@ -3,66 +3,6 @@
 	  th:replace="~{base::layout(~{::content})}">
 
 <div class="container" th:fragment="content">
-	<div class="page-inner">
-		<div class="row">
-			<div class="col-md-12">
-				<div class="card">
-					<div class="card-header">
-						<div class="d-flex align-items-center">
-							<h4 class="card-title">View Temporary</h4>
-						</div>
-					</div>
-					<div class="card-body">
-						<!-- Modal -->
-
-						<div class="table-responsive">
-							<table id="add-row" class="display table table-striped table-hover">
-								<thead>
-								<tr>
-									<th>Id</th>
-									<th>Name</th>
-									<th>Type</th>
-									<th>Started Date</th>
-									<th>End Date</th>
-									<th style="width: 10%">Action</th>
-								</tr>
-								</thead>
-
-								<tbody id="allTemporary">
-
-
-								</tbody>
-							</table>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered">
-			<div class="modal-content">
-				<div class="modal-header border-0 pb-0">
-					<button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-				</div>
-				<div class="modal-body text-center pt-0">
-					<div class="mb-3">
-						<i class="fas fa-exclamation-triangle text-warning" style="font-size: 3rem;"></i>
-					</div>
-					<h5 class="modal-title mb-3" id="deleteModalLabel">Xác nhận xóa</h5>
-					<p class="mb-0">Bạn có chắc chắn muốn xóa không ?</p>
-					<p class="text-muted small">Hành động này không thể hoàn tác.</p>
-				</div>
-				<div class="modal-footer border-0 justify-content-center">
-					<button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
-					<button type="button" class="btn btn-danger px-4" id="confirmDeleteBtn">Xóa</button>
-				</div>
-			</div>
-		</div>
-	</div>
-
-
 	<script>
 		fetch('/api/temporaryResidences')
 			.then(async (res) => {
