@@ -58,56 +58,89 @@ public class StatisticServiceImpl implements StatisticService {
 
     @Override
     public StatisticDto getStatisticRoom() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticHotel() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticRoomType() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticHotelType() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticRoomStatus() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticHotelStatus() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticRoomTypeStatus() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticHotelTypeStatus() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticRoomTypePrice() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticHotelTypePrice() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 
     @Override
     public StatisticDto getStatisticRoomTypePriceStatus() {
+        long totalRooms = roomRepository.countTotalRooms();
+        StatisticDto statisticDto = new StatisticDto();
+        statisticDto.setTotalRooms(totalRooms);
         return null;
     }
 }
