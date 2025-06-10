@@ -105,31 +105,49 @@ public class TemporaryResidenceImpl implements TemporaryResidenceService {
 
     @Override
     public List<TemporaryResidenceResponseDto> getTemporaryByUserId(Long id) {
-        return null;
+        List<TemporaryResidence> temporaryResidences = temporaryResidenceRepository.findByDemographicId(id);
+        List<TemporaryResidenceResponseDto> temporaryResidenceResponseDtos = temporaryResidences.stream()
+                .map(temporaryResidence -> modelMapper.map(temporaryResidence, TemporaryResidenceResponseDto.class)).toList();
+        return temporaryResidenceResponseDtos;
     }
 
     @Override
     public List<TemporaryResidenceResponseDto> getTemporaryByUser() {
+
         return null;
     }
 
     @Override
     public List<TemporaryResidenceResponseDto> getTemporaryActive() {
+        List<TemporaryResidence> temporaryResidences = temporaryResidenceRepository.findAll();
+        List<TemporaryResidenceResponseDto> temporaryResidenceResponseDtos = temporaryResidences.stream()
+                .map(temporaryResidence -> modelMapper.map(temporaryResidence, TemporaryResidenceResponseDto.class)).toList();
         return null;
     }
 
     @Override
     public List<TemporaryResidenceResponseDto> getTemporaryExpire() {
+        List<TemporaryResidence> temporaryResidences = temporaryResidenceRepository.findAll();
+        List<TemporaryResidenceResponseDto> temporaryResidenceResponseDtos = temporaryResidences.stream()
+                .map(temporaryResidence -> modelMapper.map(temporaryResidence, TemporaryResidenceResponseDto.class)).toList();
         return null;
     }
 
     @Override
     public List<TemporaryResidenceResponseDto> getTemporaryInactive() {
+        List<TemporaryResidence> temporaryResidences = temporaryResidenceRepository.findAll();
+        List<TemporaryResidenceResponseDto> temporaryResidenceResponseDtos = temporaryResidences.stream()
+                .map(temporaryResidence -> modelMapper.map(temporaryResidence, TemporaryResidenceResponseDto.class)).toList();
         return null;
     }
 
     @Override
     public TemporaryResidenceResponseDto updateTemporary(Long id, TemporaryResidenceRequestDto temporaryResidenceRequestDto) {
+        TemporaryResidence temporaryResidence = temporaryResidenceRepository.findById(id).orElseThrow(
+                () -> new NotFoundException("Temporary Residence not found")
+        );
+        temporaryResidence.setRoomName(temporaryResidenceRequestDto.getRoomName());
+        temporaryResidenceRepository.save(temporaryResidence);
         return null;
     }
 }
