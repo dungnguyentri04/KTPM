@@ -86,6 +86,19 @@ public class DemographicController {
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
 
+    @GetMapping("/demographics/users/{userId}")
+    public ResponseEntity<ApiResponse<List<DemographicsResponseDto>>> getUserDemographics(@PathVariable Long userId){
+        List<DemographicsResponseDto> demographicResponseDtos = demographicService.getUserDemographics(userId);
+        ApiResponse<List<DemographicsResponseDto>> response = new ApiResponse<>();
+        response.setStatus("success");
+        response.setMessage("Demographics retrieved successfully");
+        response.setData(demographicResponseDtos);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+
+    @GetMapping("/demographics/users/{userId}/households/{householdId}")
+    public ResponseEntity<ApiResponse<List<DemographicsResponseDto>>> getHouseholdDemographics(@PathVariable Long userId, @PathVariable Long householdId){
+
 
     //Get query parameter tuỳ chỉnh với các tham số
 }
