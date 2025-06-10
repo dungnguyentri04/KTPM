@@ -78,4 +78,60 @@ public class GlobalExceptionHandler {
         );
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
     }
+
+    @ExceptionHandler(MetaDataAccessException.class)
+    public ResponseEntity<ApiResponse<String>> handleMetaDataAccessException(MetaDataAccessException ex,  HttpServletRequest request) {
+        ApiResponse<String> apiResponse = new ApiResponse<>(
+                "error",
+                ex.getMessage(),
+                null,
+                Map.of(
+                        "timestamp", Instant.now(),
+                        "path", request.getRequestURI()
+                )
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ApiResponse<String>> handleException(Exception ex,  HttpServletRequest request) {
+        ApiResponse<String> apiResponse = new ApiResponse<>(
+                "error",
+                ex.getMessage(),
+                null,
+                Map.of(
+                        "timestamp", Instant.now(),
+                        "path", request.getRequestURI()
+                )
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    public ResponseEntity<ApiResponse<String>> handleRuntimeException(RuntimeException ex,  HttpServletRequest request) {
+        ApiResponse<String> apiResponse = new ApiResponse<>(
+                "error",
+                ex.getMessage(),
+                null,
+                Map.of(
+                        "timestamp", Instant.now(),
+                        "path", request.getRequestURI()
+                )
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+    }
+
+    @ExceptionHandler(IllegalStateException.class)
+    public ResponseEntity<ApiResponse<String>> handleIllegalStateException(IllegalStateException ex,  HttpServletRequest request) {
+        ApiResponse<String> apiResponse = new ApiResponse<>(
+                "error",
+                ex.getMessage(),
+                null,
+                Map.of(
+                        "timestamp", Instant.now(),
+                        "path", request.getRequestURI()
+                )
+        );
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(apiResponse);
+    }
 }
