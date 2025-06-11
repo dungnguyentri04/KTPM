@@ -3,64 +3,6 @@
 	  th:replace="~{base::layout(~{::content})}">
 
 <div class="container" th:fragment="content">
-			<div class="page-inner">
-
-				<div class="row">
-					<div class="col-md-12">
-						<div class="card">
-							<div class="card-header">
-								<div class="card-title">Add Household</div>
-							</div>
-							<div class="card-body">
-								<div class="row">
-									<div class="col-md-6 col-lg-6">
-
-										<div class="form-group">
-											<label for="citizenIdOwner">Citizen Id Owner</label>
-											<select class="form-select form-control" id="citizenIdOwner">
-														<!--Cac option-->
-											</select>
-										</div>
-
-										<div class="form-group">
-											<label for="numberOfHousehold">Number of household</label>
-											<input type="text" class="form-control" id="numberOfHousehold"
-												   placeholder="Number of household" />
-										</div>
-
-									</div>
-
-									<div class="col-md-6 col-lg-6">
-										<div class="form-group">
-											<label for="ownerName">Owner Name</label>
-											<input type="text" class="form-control" id="ownerName"
-												   placeholder="Owner Name" readonly/>
-										</div>
-
-										<div class="form-group">
-											<label for="roomName">Room Name</label>
-											<input type="text" class="form-control" id="roomName"
-												   placeholder="Room Name" />
-										</div>
-
-
-									</div>
-
-
-								</div>
-							</div>
-
-
-
-
-							<div class="card-action">
-								<button class="btn btn-success" id="submitBtn">Submit</button>
-								<button class="btn btn-danger" id="cancelBtn" onclick="history.back()">Cancel</button>
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
 
 
 <script>
